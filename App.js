@@ -5,18 +5,29 @@ import Movies from './Components/Movies/Movies';
 
 import Start from './Components/Home/Start/Start';
 import Title from './UI/Title/Title';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 
 
 export default function App() {
 
- /*  console.log(); */
+  
+const Stack = createNativeStackNavigator();
   return (
-    <View  style={styles.container}>
-      <Title>Hello</Title>
-      <Movies></Movies>
-      <Start></Start>
-    </View>
+
+    <NavigationContainer>
+      <View style={styles.container}>
+        
+
+        <Stack.Navigator>
+          <Stack.Screen name='Start' component={Start}/>
+          <Stack.Screen name='Movies' component={Movies}/>
+        </Stack.Navigator>
+
+      </View>
+    </NavigationContainer>
+
 
   );
 }
@@ -26,7 +37,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container:
   {
-    flex:1,
- 
+    flex: 1,
+
   }
 })
