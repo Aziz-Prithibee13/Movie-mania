@@ -9,7 +9,7 @@ const DetailesButton = (props) => {
             <View style={styles.detailsBtn}>
 
                 <View>
-                    <Text>{props.children}</Text>
+                    <Text style={styles.btnText}>{props.children}</Text>
                 </View>
 
             </View>
