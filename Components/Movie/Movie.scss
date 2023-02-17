@@ -1,12 +1,12 @@
 .MovieContainer
 {
-    background-color: #FFB100;
+    background-color: #FF7F3F;
     margin: 30px;
     padding: 10%;
     border-radius: 50px;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
 
 }
@@ -19,3 +19,20 @@
     height: 200px;
     margin-top:10%;
 }
+
+
+.moviePropertyContainer
+{
+}
+
+
+.movieProperty
+{
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
+    margin-left: 25px;
+}
+
+
+

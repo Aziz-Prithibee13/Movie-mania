@@ -1,5 +1,6 @@
 import React from 'react';
 import { Image, Pressable, Text, View } from 'react-native';
+import DetailesButton from '../../UI/CustomButtons/DetailesButon';
 import styles from './Movie.scss'
 
 const Movie = (props) => {
@@ -17,10 +18,11 @@ const Movie = (props) => {
                     <View >
                         <Image style={styles.moviePoster} source={{ uri: poster }} />
                     </View>
-                    <View>
-                        <Text>Name : {name}</Text>
-                        <Text>Rating : {rating}</Text>
-                        <Text>Genre : {genre}</Text>
+                    <View style={styles.moviePropertyContainer}>
+                        <Text style={styles.movieProperty}>Name : {name}</Text>
+                        <Text style={styles.movieProperty}>IMDb Rating : {rating}</Text>
+                        <Text style={styles.movieProperty}>Genre : {genre}</Text>
+                        <DetailesButton>More Detailes</DetailesButton>
                         
                     </View>
                 </View>
