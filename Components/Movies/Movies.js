@@ -1,49 +1,93 @@
-import React from 'react';
-import { View, Text, FlatList } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, FlatList, Button, ScrollView, StyleSheet } from 'react-native';
 import useMovies from '../../hooks/useMovies';
 import Movie from '../Movie/Movie';
 import Loading from '../Shared/Loading/Loading';
 import Lottie from 'lottie-react-native'
 import styles from './Movies.scss'
+import { Colors } from 'react-native/Libraries/NewAppScreen';
+import Pagination from '../Shared/Pagination/Pagination';
+import GsapLoading from '../Shared/Gsap/GsapLoading';
 
-const Movies = () =>
-{
+const Movies = () => {
 
-    const [movies , setMovies] = useMovies();
+  const [page, setPage] = useState(0)
+  const [pageCount, setPageCount] = useState(0)
+  const [size, setSize] = useState(4)
 
-
-    let loading;
-    if(!movies.length)
-    {
-        loading  = <Loading></Loading>   
-    }
-    else
-    {
-        loading = null
-    }
-
-    let icon = <Lottie style={styles.moviesPageIcon}  source={require('../../assets/45734-cinema-news-animation.json')} autoPlay loop />
+  const [movies, setMovies] = useMovies(page, size);
 
 
 
+  useEffect(() => {
+    fetch(`https://movie-mania-server-ruby.vercel.app/itemsCount`)
+      .then(res => res.json())
+      .then(data => {
+        const count = data.count;
+        const pages = Math.ceil(count / 5);
+        setPageCount(pages);
+      })
+  }, [])
 
-    const renderMovie = (movie)=>
-    {
-        return <Movie movie = {movie.item}></Movie>
-    }
 
-    return (
-        <View style={styles.moviesContainer}>
-            {icon}
-            <Text style={styles.MovieTitle}>Our Movies</Text>
+  let loading;
+  if (!movies.length) {
+    loading = <Loading></Loading>
+  }
+  else {
+    loading = null
+  }
 
-            {loading}
+  let icon = <Lottie style={styles.moviesPageIcon} source={require('../../assets/45734-cinema-news-animation.json')} autoPlay loop />
 
-            <FlatList renderItem={renderMovie}  keyExtractor={(item) => item._id} data={movies}  />
 
-           
+
+  return (
+    <View style={innerstyles.moviesContainer}>
+      <ScrollView>
+        {icon}
+        <Text style={styles.MovieTitle}>Our Movies</Text>
+
+        {loading}
+
+
+        <View style={innerstyles.paginationCOntainer}>
+        {
+          [...Array(pageCount)]
+            .map((number,index) => <Pagination key={index} number ={index}  setPage = {setPage}></Pagination>)
+        }
         </View>
-    );
+       
+
+  
+
+
+        <View>
+          {movies.map(movie => <Movie key={movie._id} movie={movie}></Movie>)}
+        </View>
+
+
+
+
+      </ScrollView>
+    </View>
+
+  );
 };
 
 export default Movies;
+
+
+const innerstyles = StyleSheet.create({
+  moviesContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    padding: 20
+  },
+  paginationCOntainer: {
+    flex :1,
+    flexDirection: 'row',
+    justifyContent : "center",
+    alignItems : "center"
+  }
+})
