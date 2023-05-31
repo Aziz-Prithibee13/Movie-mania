@@ -25,6 +25,6 @@ const styles = StyleSheet.create({
         height : 30,
         width : 70,
         backgroundColor: 'white',
-        color : "#19A7CE"
+        color : ""
     }
 })

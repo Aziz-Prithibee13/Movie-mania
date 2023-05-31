@@ -7,7 +7,7 @@
 5. Email and phone number verification like the Gmail registration page. 
 6. Multiple text box and multiple drop down list manipulation.
 7. Interactive real-time rating options for each post or for your site/app. 
-8. Pagination. heavy_check_mark:
+8. Pagination. :heavy_check_mark:
 9. Playing audio/videos that are embedded on your site but obtained from external databases not your own. For example, playing the youtube video embedded on your site. 
 10. Google map with real-time location information or at least embed maps Iframe.
 11. Using Session information during the login/logout phase. 

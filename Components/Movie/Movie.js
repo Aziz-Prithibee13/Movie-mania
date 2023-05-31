@@ -19,8 +19,8 @@ const Movie = (props) => {
                         <Image style={styles.moviePoster} source={{ uri: poster }} />
                     </View>
                     <View style={styles.moviePropertyContainer}>
-                        <Text style={styles.movieProperty}>Name : {name}</Text>
-                        <Text style={styles.movieProperty}>IMDb Rating : {rating}</Text>
+                        <Text style={styles.movieProperty}> {name}</Text>
+                        <Text style={styles.movieProperty}> Rating : {rating}</Text>
                         <Text style={styles.movieProperty}>Genre : {genre}</Text>
                         <DetailesButton>More Detailes</DetailesButton>
                         

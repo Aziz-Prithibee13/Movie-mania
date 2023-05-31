@@ -7,7 +7,12 @@
     "icon": "./assets/icon.png",
     "packagerOpts": {
       "config": "metro.config.js",
-      "sourceExts": ["js", "jsx", "scss", "sass"],
+      "sourceExts": [
+        "js",
+        "jsx",
+        "scss",
+        "sass"
+      ],
       "transformer": "node_modules/react-native-sass-transformer/index.js"
     },
     "userInterfaceStyle": "light",
@@ -29,10 +34,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.prithibee13.moviemania"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "b6274caf-a996-4b1c-a214-44d39f8f32cb"
+      }
     }
   }
 }

@@ -82,12 +82,14 @@ const innerstyles = StyleSheet.create({
   moviesContainer: {
     flex: 1,
     flexDirection: 'column',
-    padding: 20
+    padding: 20,
+    marginBottom : 20
   },
   paginationCOntainer: {
     flex :1,
     flexDirection: 'row',
     justifyContent : "center",
-    alignItems : "center"
+    alignItems : "center",
+    marginVertical : 15
   }
 })

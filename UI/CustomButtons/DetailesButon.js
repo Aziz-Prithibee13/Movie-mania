@@ -5,7 +5,7 @@ import styles from './CustomButton.scss'
 
 const DetailesButton = (props) => {
     return (
-        <Pressable android_ripple={{ color: '#fff' }}>
+        <Pressable>
             <View style={styles.detailsBtn}>
 
                 <View>

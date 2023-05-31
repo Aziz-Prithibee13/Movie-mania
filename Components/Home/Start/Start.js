@@ -13,7 +13,7 @@ const Start = (props) => {
     const press = () =>
     {
         
-        navigation.navigate('Movies')
+        navigation.navigate('home')
     }
 
     return (
