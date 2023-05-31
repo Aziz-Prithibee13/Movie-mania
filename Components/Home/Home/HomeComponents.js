@@ -4,10 +4,10 @@ import styles from "./Home.scss"
 
 const HomeComponents = (props) => 
 {
-    const { name , img } = props
+    const { name , img , press , route } = props
     return (
         <View style ={[styles.HomeInnerView , style.innerView]}>
-            <Pressable android_ripple={{color : '#FFFBEB'}}>
+            <Pressable android_ripple={{color : '#FFFBEB'}} onPress={()=>press(route)}>
             <View>
                 
             <Image style={styles.image} source={{ uri : img }}/> 

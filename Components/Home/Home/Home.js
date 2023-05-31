@@ -8,41 +8,51 @@ import HomeComponents from './HomeComponents';
 import styles from "./Home.scss"
 import Lottie from 'lottie-react-native'
 
-const Home = () => {
+const Home = (props) => 
+{
+
+    const { navigation } = props
 
     const pages = [
         {
             id: 1,
             name: "Movies",
             img: "https://i.ibb.co/hRfVwBF/movie-frame.png",
-            route: ""
+            route: 'Movies'
         },
 
         {
             id: 2,
             name: "Genre",
             img: 'https://i.ibb.co/r2MPLyh/genres.png',
-            route: ""
+            route: 'Comming'
         },
 
         {
             id: 3,
             name: "Users",
             img: 'https://i.ibb.co/M9Dqg25/user.png',
-            route: ""
+            route: 'Comming'
         },
 
         {
             id: 4,
-            name: "Feedback",
+            name: 'Feedback',
             img: 'https://i.ibb.co/bLVGYqF/feedback.png',
+            route : 'Comming'
         },
 
     ]
 
 
+    const handlePress = (route) =>
+    {
+        navigation.navigate(route)
+    }
+
+
     const renderItem = (itemData) => {
-        return <HomeComponents name={itemData.item.name} img={itemData.item.img} />
+        return <HomeComponents name={itemData.item.name} img={itemData.item.img} press = {handlePress} route={itemData.item.route}/>
     }
 
 
