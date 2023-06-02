@@ -1,74 +1,39 @@
 import React from 'react';
 import { FlatList, View } from 'react-native';
-import movies from "../../../assets/movie-frame.png"
-import genre from "../../../assets/genres.png"
-import users from '../../../assets/user.png'
-import feedback from '../../../assets/feedback.png'
-import HomeComponents from './HomeComponents';
 import styles from "./Home.scss"
-import Lottie from 'lottie-react-native'
 
-const Home = (props) => 
-{
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Feed from '../../Feeds/Feed';
+import Login from '../../Authentication/Login/Login';
 
-    const { navigation } = props
+const Tab = createMaterialBottomTabNavigator();
 
-    const pages = [
-        {
-            id: 1,
-            name: "Movies",
-            img: "https://i.ibb.co/hRfVwBF/movie-frame.png",
-            route: 'Movies'
-        },
+const Home = (props) => {
 
-        {
-            id: 2,
-            name: "Genre",
-            img: 'https://i.ibb.co/r2MPLyh/genres.png',
-            route: 'Comming'
-        },
-
-        {
-            id: 3,
-            name: "Users",
-            img: 'https://i.ibb.co/M9Dqg25/user.png',
-            route: 'Comming'
-        },
-
-        {
-            id: 4,
-            name: 'Feedback',
-            img: 'https://i.ibb.co/bLVGYqF/feedback.png',
-            route : 'Comming'
-        },
-
-    ]
-
-
-    const handlePress = (route) =>
-    {
-        navigation.navigate(route)
-    }
-
-
-    const renderItem = (itemData) => {
-        return <HomeComponents name={itemData.item.name} img={itemData.item.img} press = {handlePress} route={itemData.item.route}/>
-    }
 
 
     return (
 
-        <View style={styles.HomeContainer}>
-            
-                <Lottie style={styles.HomeIcon} source={require('../../../assets/90980-home.json')} autoPlay loop />
-            
-            <View>
+        <Tab.Navigator
+            initialRouteName="feed"
+            activeColor="#e91e63"
+            barStyle={{ backgroundColor: '#FFB84C' }}>
+            <Tab.Screen name="feed" component={Feed} options={{
+                tabBarLabel: '',
+                tabBarIcon: ({ color }) => (
+                    <MaterialCommunityIcons name="home" color={color} size={30} />
+                ),
+            }} />
 
-                <FlatList data={pages} keyExtractor={(item) => item.id} renderItem={renderItem} numColumns={2} />
-            </View>
+            <Tab.Screen name="login" component={Login} options={{
+                tabBarLabel : "",
+                tabBarIcon : ({color}) => (
 
-
-        </View>
+                    <MaterialCommunityIcons name="login" color={color} size={30}/>
+                ),
+            }}/>
+        </Tab.Navigator>
 
     );
 };
