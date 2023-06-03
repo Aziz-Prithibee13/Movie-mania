@@ -4,7 +4,7 @@
     "slug": "movie-mania",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/movie.png",
     "packagerOpts": {
       "config": "metro.config.js",
       "sourceExts": [
@@ -12,6 +12,14 @@
         "jsx",
         "scss",
         "sass"
+      ],
+      "plugins": [
+        [
+          "expo-image-picker",
+          {
+            "photosPermission": "The app accesses your photos to let you share them with your friends."
+          }
+        ]
       ],
       "transformer": "node_modules/react-native-sass-transformer/index.js"
     },

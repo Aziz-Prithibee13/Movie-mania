@@ -12,6 +12,7 @@ import Home from './Components/Home/Home/Home';
 import CommingSoon from './Components/Shared/CommingSoon/CommingSoon';
 import Login from './Components/Authentication/Login/Login';
 import SignUp from './Components/Authentication/SignUp/SignUp';
+import Classification from './Components/Classification/Classification';
 
 
 
@@ -31,8 +32,9 @@ export default function App() {
           <Stack.Screen name='Start' component={Start} />
           <Stack.Screen name='home' component={Home} />
           <Stack.Screen name='Movies' component={Movies} />
-          <Stack.Screen name='Comming' component={CommingSoon} />
+          <Stack.Screen name='Classify' component={Classification} />
           <Stack.Screen name='SignUp' component={SignUp} />
+          <Stack.Screen name='login' component={Login} />
         </Stack.Navigator>
 
 

@@ -22,7 +22,7 @@ const Feed = (props) =>
             id: 2,
             name: "Genre",
             img: 'https://i.ibb.co/r2MPLyh/genres.png',
-            route: 'Comming'
+            route: 'Classify'
         },
 
         {
