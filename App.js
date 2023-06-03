@@ -13,6 +13,7 @@ import CommingSoon from './Components/Shared/CommingSoon/CommingSoon';
 import Login from './Components/Authentication/Login/Login';
 import SignUp from './Components/Authentication/SignUp/SignUp';
 import Classification from './Components/Classification/Classification';
+import Feedback from './Components/Feedbacks/Feedback';
 
 
 
@@ -35,6 +36,7 @@ export default function App() {
           <Stack.Screen name='Classify' component={Classification} />
           <Stack.Screen name='SignUp' component={SignUp} />
           <Stack.Screen name='login' component={Login} />
+          <Stack.Screen name='feedback' component={Feedback} />
         </Stack.Navigator>
 
 

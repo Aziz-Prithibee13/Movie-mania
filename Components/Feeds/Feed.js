@@ -36,7 +36,7 @@ const Feed = (props) =>
             id: 4,
             name: 'Feedback',
             img: 'https://i.ibb.co/bLVGYqF/feedback.png',
-            route: 'Comming'
+            route: 'feedback'
         },
 
     ]
