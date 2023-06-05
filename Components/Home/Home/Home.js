@@ -6,12 +6,31 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Feed from '../../Feeds/Feed';
 import Login from '../../Authentication/Login/Login';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import auth from '../../../firebase.init';
+import UserDetailes from '../../UserDetailes/UserDetailes';
 
 const Tab = createMaterialBottomTabNavigator();
 
 const Home = (props) => {
 
+    const [user] = useAuthState(auth);
 
+    const UserTab =  <Tab.Screen name="UserDetailes" component={UserDetailes} options={{
+        tabBarLabel : "",
+        tabBarIcon : ({color}) => (
+
+            <MaterialCommunityIcons name="AccountCircleOutlinedIcon" color={color} size={30}/>
+        ),
+    }}/>
+
+    const loginTab = <Tab.Screen name="login" component={Login} options={{
+        tabBarLabel : "",
+        tabBarIcon : ({color}) => (
+
+            <MaterialCommunityIcons name="login" color={color} size={30}/>
+        ),
+    }}/>
 
     return (
 
@@ -26,13 +45,10 @@ const Home = (props) => {
                 ),
             }} />
 
-            <Tab.Screen name="login" component={Login} options={{
-                tabBarLabel : "",
-                tabBarIcon : ({color}) => (
 
-                    <MaterialCommunityIcons name="login" color={color} size={30}/>
-                ),
-            }}/>
+            { user ? UserTab : loginTab}
+
+            
         </Tab.Navigator>
 
     );

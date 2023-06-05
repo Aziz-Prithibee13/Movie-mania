@@ -1,14 +1,14 @@
 .MovieContainer
 {
-    background-color: #FF7F3F;
+    background-color: #FFFDF9;
     margin: 20px;
     border-radius: 20px;
-    height: 400px;
+    
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
     align-items : center;
-    padding: 5%;
+    padding: 10%;
 
 }
 
@@ -16,8 +16,9 @@
 
 .moviePoster
 {
-    width: 150px;
+    width: 300px;
     height: 200px;
+    margin-bottom: 5%;
 }
 
 
@@ -30,8 +31,7 @@
 {
     font-weight: bold;
     font-size: 20px;
-    text-align: center;
-    
+    text-align: center;    
 }
 
 

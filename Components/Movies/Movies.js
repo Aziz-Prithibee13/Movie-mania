@@ -8,8 +8,11 @@ import styles from './Movies.scss'
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import Pagination from '../Shared/Pagination/Pagination';
 import GsapLoading from '../Shared/Gsap/GsapLoading';
+import { useNavigation } from '@react-navigation/native';
 
-const Movies = () => {
+const Movies = (props) => 
+{
+
 
   const [page, setPage] = useState(0)
   const [pageCount, setPageCount] = useState(0)
@@ -17,7 +20,7 @@ const Movies = () => {
 
   const [movies, setMovies] = useMovies(page, size);
 
-
+  
 
   useEffect(() => {
     fetch(`https://movie-mania-server-ruby.vercel.app/itemsCount`)
@@ -63,7 +66,7 @@ const Movies = () => {
 
 
         <View>
-          {movies.map(movie => <Movie key={movie._id} movie={movie}></Movie>)}
+          {movies.map(movie => <Movie key={movie._id}  movie={movie}></Movie>)}
         </View>
 
 

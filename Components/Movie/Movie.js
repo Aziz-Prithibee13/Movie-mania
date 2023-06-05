@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, Pressable, Text, View } from 'react-native';
+import { Image, Pressable, Text, View, StyleSheet } from 'react-native';
 import DetailesButton from '../../UI/CustomButtons/DetailesButon';
 import styles from './Movie.scss'
 
@@ -8,11 +8,11 @@ const Movie = (props) => {
     const { movie } = props;
 
 
-    const { name, rating, genre, poster } = movie;
+    const { _id,name, rating, genre, poster} = movie;
 
     return (
 
-        <View >
+        <View style={style.moviContainer}>
             <Pressable android_ripple={{ color: '#ccc' }}>
                 <View style={styles.MovieContainer}>
                     <View >
@@ -22,7 +22,7 @@ const Movie = (props) => {
                         <Text style={styles.movieProperty}> {name}</Text>
                         <Text style={styles.movieProperty}> Rating : {rating}</Text>
                         <Text style={styles.movieProperty}>Genre : {genre}</Text>
-                        <DetailesButton>More Detailes</DetailesButton>
+                        <DetailesButton  id={_id}>More Detailes</DetailesButton>
                         
                     </View>
                 </View>
@@ -35,3 +35,12 @@ const Movie = (props) => {
 };
 
 export default Movie;
+
+
+
+const style = StyleSheet.create({
+    moviContainer :
+    {
+        elavation : 15     
+    }
+})

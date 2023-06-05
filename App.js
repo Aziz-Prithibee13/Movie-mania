@@ -14,6 +14,7 @@ import Login from './Components/Authentication/Login/Login';
 import SignUp from './Components/Authentication/SignUp/SignUp';
 import Classification from './Components/Classification/Classification';
 import Feedback from './Components/Feedbacks/Feedback';
+import DetaileTabs from './Components/Detailes/DetaileTabs';
 
 
 
@@ -37,6 +38,7 @@ export default function App() {
           <Stack.Screen name='SignUp' component={SignUp} />
           <Stack.Screen name='login' component={Login} />
           <Stack.Screen name='feedback' component={Feedback} />
+          <Stack.Screen name='Detailes' component={DetaileTabs} />
         </Stack.Navigator>
 
 

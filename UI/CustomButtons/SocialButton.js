@@ -2,10 +2,10 @@ import React from 'react';
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import style from './CustomButton.scss'
 const SocialButton = (props) => {
-    const { img } = props
+    const { img , press } = props
     return (
         <View style={[styles.outerView]}>
-            <Pressable >
+            <Pressable onPress={press}>
                 <View style={styles.innerView}>
                     <Image style={styles.btnImg} source={{ uri: img }} />
                     <Text style={styles.btnText}>{props.children}</Text>

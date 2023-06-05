@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, StyleSheet, View } from 'react-native';
+import PaginationButton from '../../../UI/CustomButtons/PaginationButton';
 
 const Pagination = (props) => 
 {
@@ -7,24 +8,14 @@ const Pagination = (props) =>
 
      const pageNumber =  number+1
 
+    const changePage = (number) =>
+    {
+        setPage(number)
+    }
 
-    return <Button 
-    style={styles.pageBtn}
-    title={pageNumber.toString()}
-    onPress={() => setPage(number)} 
-    
-
-    />
+    return <PaginationButton press={changePage} number={number} >{pageNumber.toString()}</PaginationButton>
 };
 
 export default Pagination;
 
 
-const styles = StyleSheet.create({
-    pageBtn : {
-        height : 30,
-        width : 70,
-        backgroundColor: 'white',
-        color : ""
-    }
-})

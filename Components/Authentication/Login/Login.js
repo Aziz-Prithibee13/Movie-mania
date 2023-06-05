@@ -1,5 +1,6 @@
 import React from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
+import auth from '../../../firebase.init';
 import Divider from '../../../UI/Divider/Divider';
 import Email from '../Provider/Email';
 import Google from '../Provider/Google';
@@ -7,6 +8,7 @@ import Google from '../Provider/Google';
 const Login = (props) => 
 {
     const { navigation } = props
+
 
     const press = () =>
     {

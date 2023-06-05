@@ -1,19 +1,28 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { Pressable, Text, View } from 'react-native';
 
 import styles from './CustomButton.scss'
 
 const DetailesButton = (props) => {
+    const { id } = props
+
+
+    const navigation = useNavigation();
+
+    const handPress = (id) => {
+        navigation.navigate("Detailes", {
+            id: id
+        })
+    }
     return (
-        <Pressable>
-            <View style={styles.detailsBtn}>
+        <View style={styles.detailsBtn}>
+            <Pressable onPress={()=>handPress(id)}>
+                <Text style={styles.btnText}>{props.children}</Text>
 
-                <View>
-                    <Text style={styles.btnText}>{props.children}</Text>
-                </View>
+            </Pressable>
+        </View>
 
-            </View>
-        </Pressable>
     );
 };
 
