@@ -17,7 +17,7 @@
 15. Embed animations using GSAP. :heavy_check_mark:
 16. Application of SASS. :heavy_check_mark:
 17. Configure and work with modern workflow and collaboration tools such as Git/GulpJs/GrantJs/Webpack/SVN. :heavy_check_mark:
-18. Simple application of GraphQL. 
+18. Simple application of GraphQL. :heavy_check_mark:
 19. RESTful APIs / SOAP APIs :heavy_check_mark:
 20. Crystal report.
 21. TBD: Other task-specific features.
