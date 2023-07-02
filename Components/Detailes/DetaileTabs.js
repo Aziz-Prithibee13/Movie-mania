@@ -6,6 +6,7 @@ import MaterialIcons from "react-native-vector-icons/MaterialIcons"
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import General from './General/General';
 import Trailer from './Trailer/Trailer';
+import Reacts from './Reacts/Reacts';
 
 const DetaileTabs = () => {
     const Tab = createMaterialBottomTabNavigator();
@@ -27,13 +28,14 @@ const DetaileTabs = () => {
             }} />
             <Tab.Screen name="trailers" component={Trailer} options={{
                 tabBarLabel: 'Trailer',
+                tabBarActiveTintColor : 'transparent',
                 tabBarIcon: ({ color }) => (
                     
                     <MaterialCommunityIcons name="movie-roll" color={color} size={26} />
 
                 ),
             }} />
-            <Tab.Screen name="reacts" component={General} options={{
+            <Tab.Screen name="reacts" component={Reacts} options={{
                 tabBarLabel: 'Reacts',
                 tabBarIcon: ({ color }) => (
                     
