@@ -56,7 +56,7 @@ const General = () => {
                     </View>
                 </Pressable>
             </View>
-            <Map/>
+            {/* <Map/> */}
         </ScrollView>
     );
 };

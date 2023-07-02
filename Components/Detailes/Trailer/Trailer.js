@@ -1,10 +1,11 @@
 import React from 'react';
-import { View } from 'react-native';
+import { Text, View } from 'react-native';
 import YoutubeIframe from 'react-native-youtube-iframe';
-
+import style from './Traile.scss'
 const Trailer = () => {
     return (
-        <View>
+        <View style={style.trailerContainer}>
+            <Text>You can See </Text>
             <YoutubeIframe
                 height={300}
                 

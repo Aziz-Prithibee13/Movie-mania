@@ -10,14 +10,14 @@ const DetailesButton = (props) => {
 
     const navigation = useNavigation();
 
-    const handPress = (id) => {
+    const handPress = () => {
         navigation.navigate("Detailes", {
             id: id
         })
     }
     return (
         <View style={styles.detailsBtn}>
-            <Pressable onPress={()=>handPress(id)}>
+            <Pressable onPress={handPress}>
                 <Text style={styles.btnText}>{props.children}</Text>
 
             </Pressable>

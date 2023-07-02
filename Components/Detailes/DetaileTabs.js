@@ -20,7 +20,7 @@ const DetaileTabs = () => {
             barStyle={{ backgroundColor: '#FFB84C' }}>
             <Tab.Screen name="general" component={General} options={{
                 tabBarLabel: 'Article',
-                tabBarColor :'',
+                tabBarActiveTintColor : 'transparent',
                 tabBarIcon: ({ color , focused }) => (
                     <MaterialIcons name="article" color={color} size={30} />
                 ),
