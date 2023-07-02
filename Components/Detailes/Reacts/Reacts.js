@@ -5,6 +5,7 @@ import Love from './Love';
 import Unlike from './Unlike';
 import style from './Reacts.scss'
 import { useState } from 'react';
+import Ratings from '../../Shared/Ratings/Ratings';
 const Reacts = () => {
 
 
@@ -17,6 +18,9 @@ const Reacts = () => {
     const [likeColor, setLikeColor] = useState('')
     const [unlikeColor, setUnLikeColor] = useState('')
     const [loveColor, setLoveColor] = useState('')
+
+
+    const [ratings , setRatings] = useState(0)
 
     const handleLike = () => {
         setLike(!like)
@@ -64,6 +68,8 @@ const Reacts = () => {
 
             <View>
                 <Text>Give Ratings to the movie</Text>
+                <Ratings rating={ratings} setRating={setRatings}/>
+                
             </View>
         </View>
     );

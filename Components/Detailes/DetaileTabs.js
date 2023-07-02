@@ -1,53 +1,63 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialIcons from "react-native-vector-icons/MaterialIcons"
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import General from './General/General';
 import Trailer from './Trailer/Trailer';
 import Reacts from './Reacts/Reacts';
+import Reviews from './Reviews/Reviews';
 
 const DetaileTabs = () => {
-    const Tab = createMaterialBottomTabNavigator();
+    const Tab = createBottomTabNavigator();
 
     return (
         <Tab.Navigator
             initialRouteName="general"
             activeColor="#FC2947"
             inactiveColor='#526D82'
-            labelStyle={{ fontSize: 12 }}
+            labelStyle={{ fontSize: 30 }}
             shifting={true}
-            barStyle={{ backgroundColor: '#FFB84C' }}>
+            screenOptions={{
+                tabBarActiveTintColor: '#FC2947',
+                tabBarStyle :{
+                    height : 100 ,
+                },
+              }}>
             <Tab.Screen name="general" component={General} options={{
+                headerShown:false,
                 tabBarLabel: 'Article',
-                tabBarActiveTintColor : 'transparent',
+                tabBarActiveBackgroundColor : '#FFB84C',
                 tabBarIcon: ({ color , focused }) => (
-                    <MaterialIcons name="article" color={color} size={30} />
+                    <MaterialIcons name="article" color={color} size={40} />
                 ),
             }} />
             <Tab.Screen name="trailers" component={Trailer} options={{
+                headerShown:false,
                 tabBarLabel: 'Trailer',
-                tabBarActiveTintColor : 'transparent',
+                tabBarActiveBackgroundColor : '#FFB84C',
                 tabBarIcon: ({ color }) => (
                     
-                    <MaterialCommunityIcons name="movie-roll" color={color} size={26} />
+                    <MaterialCommunityIcons name="movie-roll" color={color} size={40} />
 
                 ),
             }} />
             <Tab.Screen name="reacts" component={Reacts} options={{
+                headerShown:false,
                 tabBarLabel: 'Reacts',
                 tabBarIcon: ({ color }) => (
                     
-                    <MaterialCommunityIcons name="cards-playing-heart" color={color} size={26} />
+                    <MaterialCommunityIcons name="cards-playing-heart" color={color} size={40} />
 
                 ),
             }} />
-            <Tab.Screen name="Review" component={General} options={{
+            <Tab.Screen name="Review" component={Reviews} options={{
+                headerShown:false,
                 tabBarLabel: 'Reviews',
                 tabBarIcon: ({ color }) => (
                     
-                    <MaterialIcons name="rate-review" color={color} size={26} />
+                    <MaterialIcons name="rate-review" color={color} size={40} />
 
                 ),
             }} />
