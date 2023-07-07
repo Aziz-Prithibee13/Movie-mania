@@ -1,33 +1,16 @@
 import React, { useState } from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
-import * as ImagePicker from 'expo-image-picker';
+import { StyleSheet, Text, View, Image } from 'react-native';
+
 import UploadButton from '../../../UI/CustomButtons/UploadButton';
 
-const Upload = () => {
+const Upload = (props) =>
+{
+    const { pick } = props
 
-    const [image, setImage] = useState(null);
 
-    const pickImage = async () => {
-        let result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.All,
-            allowsEditing: true,
-            aspect: [4, 3],
-            quality: 1,
-        });
-
-        console.log(result);
-
-        if (!result.canceled) {
-            setImage(result.assets[0].uri);
-        }
-    };
     return (
-        <View style ={styles.outerView}>
-            <Text>Heello</Text>
-            <UploadButton Press={pickImage}></UploadButton>
-        
-        {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
-
+        <View>
+            <UploadButton press={pick}>Pick Image</UploadButton>
         </View>
     );
 };

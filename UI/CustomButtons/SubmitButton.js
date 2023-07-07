@@ -2,10 +2,12 @@ import React from 'react';
 import Lottie from 'lottie-react-native'
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import style  from "./CustomButton.scss"
-const SubmitButton = (props) => {
+const SubmitButton = (props) => 
+{
+    const { press } = props
     return (
         <View style={styles.outerView}>
-            <Pressable >
+            <Pressable onPress={press}>
                 <View style={style.submitBtninnerView}>
                     <Text style={styles.btnText}>{props.children}</Text>
                 </View>

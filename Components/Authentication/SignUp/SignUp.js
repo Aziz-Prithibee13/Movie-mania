@@ -3,7 +3,6 @@ import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import Divider from '../../../UI/Divider/Divider';
 import Email from '../Provider/Email';
 import Google from '../Provider/Google';
-
 const SignUp = ({navigation
 }) => {
     const press = () =>
@@ -21,7 +20,6 @@ const SignUp = ({navigation
             <Google type='sign up'></Google>
             <View style={styles.throughView}>
                 <Text style={styles.outerThoroughTxt}>Already in Movie Mania?</Text>
-                
                 <Pressable onPress={press}><Text style={styles.thoroughTxt}>Login Here</Text></Pressable>
             </View>
         </View>
@@ -39,7 +37,8 @@ const styles = StyleSheet.create({
         elevation : 20,
         backgroundColor : '#FFFBEB',
         marginHorizontal: 30,
-        marginVertical: 60
+        marginVertical: 60,
+        borderRadius : 15
     },
     header:
     {
@@ -54,7 +53,9 @@ const styles = StyleSheet.create({
         flexDirection : 'row',
         justifyContent : 'center',
         alignItems : 'center',
-        marginVertical : 10
+        marginVertical : 10,
+        
+        marginVertical : '10%'
     },
 
     outerThoroughTxt:
@@ -65,7 +66,7 @@ const styles = StyleSheet.create({
     thoroughTxt:
     {
         color: '#E21818',
-        fontSize : 18
+        fontSize : 18,
 
     }
 

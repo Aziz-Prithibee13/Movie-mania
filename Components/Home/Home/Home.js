@@ -20,7 +20,7 @@ const Home = (props) => {
         tabBarLabel : "",
         tabBarIcon : ({color}) => (
 
-            <MaterialCommunityIcons name="AccountCircleOutlinedIcon" color={color} size={30}/>
+            <MaterialCommunityIcons name="account-outline" color={color} size={30}/>
         ),
     }}/>
 

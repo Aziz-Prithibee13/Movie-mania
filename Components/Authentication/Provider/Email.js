@@ -1,102 +1,133 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useForm, Controller } from "react-hook-form";
 import SubmitButton from '../../../UI/CustomButtons/SubmitButton';
+import DateTimePicker from '@react-native-community/datetimepicker'
+import DateBtn from '../../../UI/CustomButtons/DateBtn';
+import auth from '../../../firebase.init';
+import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 
 const Email = (props) => {
     const { type } = props
 
-    const { control, handleSubmit, formState: { errors } } = useForm({
-        defaultValues: {
-            name: '',
-            email: '',
-            password: '',
-            birthdate: '',
-            mobile: ''
-        }
-    });
-    const onSubmit = data => console.log(data);
+    const [date, setDate] = useState(new Date());
+    const [mode, setMode] = useState('date');
+    const [show, setShow] = useState(false);
+    const [name, setName] = useState(null)
+    const [email, setEmail] = useState(null)
+    const [password, setPassWord] = useState(null)
+    const [mobile, setMobile] = useState(null)
+    const [nameError, setNameError] = useState('')
+    const [emailError, setEmailError] = useState('')
+    const [mobileError, setMobileError] = useState('')
+    const [passError, setPassError] = useState('')
+    const [
+        createUserWithEmailAndPassword,
+        user,
+        loading,
+        error,
+      ] = useCreateUserWithEmailAndPassword(auth);
+
+    
+
+
+    const onChange = (event, selectedDate) => {
+        const currentDate = selectedDate;
+        setShow(false);
+        setDate(currentDate);
+    };
+
+    const showMode = (currentMode) => {
+        setShow(true);
+        setMode(currentMode);
+    };
+
+    const showDatepicker = () => {
+        showMode('date');
+    };
+
+    const nameBlur=(e)=>
+    {
+        
+        setName(e.nativeEvent.text)
+        
+    }
+
+    const emailBlur=(e)=>
+    {
+        setEmail(e.nativeEvent.text)
+    }
+
+    const mobileBlur=(e)=>
+    {
+        
+        setMobile(e.nativeEvent.text)
+
+    }
+
+    const passwordBlur=(e)=>
+    {
+        setPassWord(e.nativeEvent.text)
+    }
+
+    if(user)
+    {
+        console.log(user);
+    }
+
+
+    const handleSubmit = () =>
+    {/* 
+        createUserWithEmailAndPassword(email, password) */
+        console.log('pressed');
+    }
+
+
     if (type === 'signup') {
         return (
             <View style={styles.formContainer}>
 
-
-                <Controller
-                    control={control}
-                    rules={{
-                        required: true,
-                    }}
-                    render={({ field: { onChange, onBlur, value } }) => (
-                        <TextInput
-                            placeholder="Enter your Name"
-                            onBlur={onBlur}
-                            onChangeText={onChange}
-                            value={value}
-                            style={styles.textInput}
-                        />
-                    )}
-                    name="name"
-                />
-                {errors.name && <Text>This is required.</Text>}
-
-                <Controller
-                    control={control}
-                    rules={{
-                        maxLength: 100,
-                    }}
-                    render={({ field: { onChange, onBlur, value } }) => (
-                        <TextInput
-                            placeholder="Enter Email"
-                            onBlur={onBlur}
-                            onChangeText={onChange}
-                            value={value}
-
-                            style={styles.textInput}
-                        />
-                    )}
-                    name="email"
+                <TextInput
+                    placeholder="Enter your Name"
+                    onEndEditing={nameBlur}
+                    style={styles.textInput}
                 />
 
-                <Controller
-                    control={control}
-                    rules={{
-                        maxLength: 11,
-                        minLength: 11,
-                    }}
-                    render={({ field: { onChange, onBlur, value } }) => (
-                        <TextInput
-                            placeholder="Enter Your Mobile Number"
-                            onBlur={onBlur}
-                            onChangeText={onChange}
-                            value={value}
+                <TextInput
+                    placeholder="Enter Email"
+                    onEndEditing={emailBlur}
 
-                            style={styles.textInput}
-                        />
-                    )}
-                    name="mobile"
+                    style={styles.textInput}
                 />
 
-                <Controller
-                    control={control}
-                    rules={{
-                        minLength: 16,
-                    }}
-                    render={({ field: { onChange, onBlur, value } }) => (
-                        <TextInput
-                            placeholder="Enter Your Password"
-                            onBlur={onBlur}
-                            onChangeText={onChange}
-                            value={value}
-
-                            style={styles.textInput}
-                        />
-                    )}
-                    name="password"
+                <TextInput
+                    placeholder="Enter Your Mobile Number"
+                    onEndEditing={mobileBlur}
+                    style={styles.textInput}
                 />
 
+                <TextInput
+                    placeholder="Enter Your Password"
+                    onEndEditing={passwordBlur}
+                    style={styles.textInput}
+                />
+                <DateBtn press={showDatepicker} styles = {styles.textInput} value={date.toLocaleString()}></DateBtn>
+
+                {show && (
+                    <DateTimePicker
+                        testID="dateTimePicker"
+                        value={date}
+                        mode={mode}
+                        is24Hour={true}
+                        onChange={onChange}
+        
+                    />
+                )}
 
 
-                <SubmitButton>Sign Up</SubmitButton>
+
+
+                <SubmitButton press={handleSubmit}>Sign Up</SubmitButton>
             </View>
         );
     }
@@ -106,41 +137,19 @@ const Email = (props) => {
             <View style={styles.formContainer}>
 
 
-                <Controller
-                    control={control}
-                    rules={{
-                        required: true,
-                    }}
-                    render={({ field: { onChange, onBlur, value } }) => (
-                        <TextInput
-                            placeholder="Enter your email Here"
-                            onBlur={onBlur}
-                            onChangeText={onChange}
-                            value={value}
-                            style={styles.textInput}
-                        />
-                    )}
-                    name="email"
-                />
-                {errors.name && <Text>This is required.</Text>}
 
-                <Controller
-                    control={control}
-                    rules={{
-                        maxLength: 100,
-                    }}
-                    render={({ field: { onChange, onBlur, value } }) => (
-                        <TextInput
-                            placeholder="Enter Your Password"
-                            onBlur={onBlur}
-                            onChangeText={onChange}
-                            value={value}
-
-                            style={styles.textInput}
-                        />
-                    )}
-                    name="email"
+                <TextInput
+                    placeholder="Enter your email Here"
+                    style={styles.textInput}
                 />
+
+
+                <TextInput
+                    placeholder="Enter Your Password"
+
+                    style={styles.textInput}
+                />
+
 
                 <SubmitButton>Login</SubmitButton>
 

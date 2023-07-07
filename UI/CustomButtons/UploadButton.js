@@ -1,18 +1,14 @@
 import React from 'react';
 import { Pressable, Text, View } from 'react-native';
+import Style from './CustomButton.scss'
 
-const UploadButton = (props) => 
-{
+const UploadButton = (props) => {
 
-    const { press} = props
+    const { press, styles } = props
     return (
-        <Pressable onPress={() =>press() }>
+        <Pressable style={[Style.ulpoadbtn, styles]} onPress={press}>
             <View >
-
-                <View>
-                    <Text>Upload</Text>
-                </View>
-
+                <Text style={Style.btnText}>{props.children}</Text>
             </View>
         </Pressable>
     );

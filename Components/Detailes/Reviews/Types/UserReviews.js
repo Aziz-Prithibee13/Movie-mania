@@ -1,14 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 import SubmitButton from '../../../../UI/CustomButtons/SubmitButton';
+import Lottie from 'lottie-react-native'
 import style from "../Reviews.scss"
-const UserReviews = () => {
+const UserReviews = () => 
+{
+    const [values ,setValues] = useState('');
+    const [review , setReview] = useState('');
+
+    const handleBlur = (e) =>
+    {
+        
+        setReview(e.nativeEvent.text)
+    }
+
+    const handleSubmit = () =>
+    {
+        console.log(review);
+    }
+
     return (
         <View>
-            <View style={[style.formContainer, styles.formContainer]}>
-                <Text style={style.formHeading}>Provide your Reviews for this movie</Text>
-                <TextInput placeholder='Enter your Review' style={styles.textInput}/>
-                <SubmitButton>Submit Your Review</SubmitButton>
+            <View style={style.formContainer}>
+                <View style={styles.formView}>
+
+                    <Text style={style.formHeading}>Provide your Reviews for this movie</Text>
+                    <TextInput 
+                    placeholder='Enter your Review'
+                    style={styles.textInput}
+                    onEndEditing={handleBlur}
+                    />
+                    <SubmitButton press={handleSubmit}>Submit Your Review</SubmitButton>
+                </View>
+                <View></View>
             </View>
         </View>
     );
@@ -17,20 +41,20 @@ const UserReviews = () => {
 export default UserReviews;
 
 const styles = StyleSheet.create({
-    
-    formContainer :
+
+    formView:
     {
-        elevation : 10,
+        elevation: 10,
     },
-    textInput :
+    textInput:
     {
-        borderWidth : 3,
-        borderColor : 'black',
+        borderWidth: 3,
+        borderColor: 'black',
         margin: 20,
-        padding : "10%",
-        borderRadius : 10,
-        height : 200,
-        width : 300,
+        padding: "10%",
+        borderRadius: 10,
+        height: 200,
+        width: 300,
         textAlign: 'center'
 
     }
