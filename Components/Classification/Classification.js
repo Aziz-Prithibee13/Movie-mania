@@ -14,6 +14,7 @@ const Classification = () => {
     const [image, setImage] = useState(null);
     const [type, setType] = useState('')
     const [fileName, setFileName] = useState('')
+    const [url , setUrl] = useState('')
 
 
     const uploadToImgbb = async () => {
@@ -26,13 +27,15 @@ const Classification = () => {
         try {
 
             const imgBBUrl = 'https://api.imgbb.com/1/upload?key=fdaec3ed0608d4178c14b5c74af92ecc'
-
+            setUrl('')
 
             const imgData = new FormData();
 
+            const uri = `data:image/jpeg;base64,${base64}`
+
 
             imgData.append('image', {
-                image,
+                uri,
                 type: 'image/jpeg',
                 name: fileName,
             });
@@ -41,7 +44,7 @@ const Classification = () => {
                 method: 'POST',
                 body: imgData,
             }).then(res=>res.json())
-            .then(data=> console.log(data))
+            .then(data=> setUrl(data?.data?.display_url))
         }
         catch (error) {
             console.log(error);
@@ -55,6 +58,24 @@ const Classification = () => {
     const classify = async () => {
 
         await uploadToImgbb();
+        
+
+        console.log(url);
+
+
+        const imgbbData = {
+            url : url
+        }
+
+        await fetch('https://movie-mania-server-ruby.vercel.app/classification',
+        {
+            method : "POST",
+            headers :
+            {
+                "content-type" : "application/json"
+            },
+            body : JSON.stringify(imgbbData)
+        }).then(res=>res.json()).then(data=>console.log(data)) 
 
     }
 
@@ -63,7 +84,7 @@ const Classification = () => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,
-            aspect: [4, 3],
+            aspect: [7, 10],
             quality: 1,
         });
 
