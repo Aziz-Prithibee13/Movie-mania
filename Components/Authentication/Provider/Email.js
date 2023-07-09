@@ -55,18 +55,36 @@ const Email = (props) => {
 
     const emailBlur=(e)=>
     {
+        const email = e.nativeEvent.text
+
+
+        if(!/[a-z0-9]+@[a-z]+\.[a-z]{2,3}/.test(email) || !email)
+        {
+          setEmailError('Provide An valid Email')
+        }
+
         setEmail(e.nativeEvent.text)
+
     }
 
     const mobileBlur=(e)=>
     {
-        
+        const mobile = e.nativeEvent.text
+        if( mobile.length !==11 || !mobile )
+        {
+            setMobileError("Give 11 digit mobile number")
+        }
         setMobile(e.nativeEvent.text)
 
     }
 
     const passwordBlur=(e)=>
     {
+        const pass = e.nativeEvent.text
+        if(pass.length<8 || !pass)
+        {
+            setPassError("Password atleast 8 charecters")
+        }
         setPassWord(e.nativeEvent.text)
     }
 
@@ -100,17 +118,22 @@ const Email = (props) => {
                     style={styles.textInput}
                 />
 
+                {emailError? <Text style={styles.errorMessage}>{emailError}</Text> : null}
+
                 <TextInput
                     placeholder="Enter Your Mobile Number"
                     onEndEditing={mobileBlur}
                     style={styles.textInput}
                 />
 
+                {mobileError? <Text style={styles.errorMessage}>{mobileError}</Text> : null}
+
                 <TextInput
                     placeholder="Enter Your Password"
                     onEndEditing={passwordBlur}
                     style={styles.textInput}
                 />
+                {passError ? <Text style={styles.errorMessage}>{passError}</Text> : null}
                 <DateBtn press={showDatepicker} styles = {styles.textInput} value={date.toLocaleString()}></DateBtn>
 
                 {show && (
@@ -171,5 +194,13 @@ const styles = StyleSheet.create({
         borderBottomColor: 'black',
         borderBottomWidth: 3,
         margin: 20
+    },
+    errorMessage : 
+    {
+        textAlign : 'center',
+        color : '#D21312',
+        fontWeight : 'bold',
+        fontSize : 15
+
     }
 })

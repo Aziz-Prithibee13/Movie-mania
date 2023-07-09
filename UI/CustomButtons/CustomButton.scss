@@ -1,5 +1,4 @@
-.startButton
-{
+.startButton {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -7,25 +6,23 @@
     width: 150px;
     height: 70px;
     border-radius: 30px;
-    border : 5px solid transparent;
+    border: 5px solid transparent;
     margin-top: 10%;
     margin-left: auto;
     margin-right: auto;
 }
 
 
-.btnText
-{
+.btnText {
     text-align: center;
-    font-weight: bold ;
+    font-weight: bold;
     font-size: 20px;
     color: white;
 }
 
 
-.detailsBtn
-{
-    border : 3px solid transparent;
+.detailsBtn {
+    border: 3px solid transparent;
     width: 100%;
     height: 60px;
     display: flex;
@@ -41,23 +38,34 @@
 }
 
 
-.submitBtninnerView 
-{
+.submitBtninnerView {
     display: flex;
     justify-content: center;
 }
 
-.ulpoadbtn 
-{
-    
-    border : 3px solid transparent;
+.ulpoadbtn {
+
+    border: 3px solid transparent;
     width: 50%;
     height: 60px;
-    
+
     border-radius: 10px;
     background-color: #525FE1;
     margin-left: auto;
     margin-right: auto;
     margin-top: 20px;
     padding: 2%;
+}
+
+
+.logOutBtn {
+
+    border: 3px solid transparent;
+    background-color: #393646;
+    border-radius: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    padding: 2%;
+    
 }
