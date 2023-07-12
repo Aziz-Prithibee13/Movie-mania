@@ -6,7 +6,7 @@ const UploadButton = (props) => {
 
     const { press, styles } = props
     return (
-        <Pressable style={[Style.ulpoadbtn, styles]} onPress={press}>
+        <Pressable android_ripple={{color : "#fff"}} style={[Style.ulpoadbtn, styles]} onPress={press}>
             <View >
                 <Text style={Style.btnText}>{props.children}</Text>
             </View>

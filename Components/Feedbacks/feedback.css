@@ -1,0 +1,16 @@
+.feedAnim {
+  margin-top: 5%;
+  width: 100%;
+}
+
+.header {
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 10%;
+}
+
+.gridView {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}/*# sourceMappingURL=feedback.css.map */

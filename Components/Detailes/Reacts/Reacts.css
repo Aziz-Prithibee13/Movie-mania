@@ -1,0 +1,26 @@
+.reactConntainer {
+  margin: 10%;
+  padding: 10%;
+}
+
+.reacts {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: 10%;
+}
+
+.reactHeader {
+  margin: 10%;
+  text-align: center;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.reactLabel {
+  margin-top: 20%;
+  font-weight: bold;
+  font-size: 15px;
+  text-align: center;
+}/*# sourceMappingURL=Reacts.css.map */

@@ -1,0 +1,39 @@
+.animation {
+  margin-top: 10%;
+  margin-bottom: 10%;
+  height: 250px;
+  width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.heading {
+  font-weight: bold;
+  font-size: 25px;
+  text-align: center;
+  margin-top: 10%;
+  margin-bottom: 10%;
+}
+
+.defaultimg {
+  height: 200px;
+  width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.pickedImg {
+  height: 700px;
+  width: 500px;
+  margin-top: 10%;
+  margin-bottom: 5%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.loadingAnimation {
+  height: 300px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}/*# sourceMappingURL=Classification.css.map */

@@ -8,26 +8,38 @@ import style from "./Classification.scss"
 import { v4 as uuidv4 } from 'uuid'
 import * as ImagePicker from 'expo-image-picker';
 import * as  FileSystem from 'expo-file-system'
+import GsapLoading from '../Shared/Gsap/GsapLoading';
+import { useEffect } from 'react';
+import Results from './Results/Results';
 
 const Classification = () => {
 
     const [image, setImage] = useState(null);
     const [type, setType] = useState('')
     const [fileName, setFileName] = useState('')
-    const [url , setUrl] = useState('')
+    const [url, setUrl] = useState(null)
+    const [results, setResults] = useState([])
+    const [btnLoad, setBtnLoad] = useState(true)
+    const [load, setLoad] = useState(true)
+
+    useEffect(() => {
+        setTimeout(() => {
+            setLoad(!load);
+        }, 2000);
+    }, []);
 
 
-    const uploadToImgbb = async () => {
-
-        const base64 = await FileSystem.readAsStringAsync(image, {
-            encoding: FileSystem.EncodingType.Base64,
-        });
-
+    const uploadToImgbb = async (img,file) => {
 
         try {
 
+            const base64 = await FileSystem.readAsStringAsync(img, {
+                encoding: FileSystem.EncodingType.Base64,
+            });
             const imgBBUrl = 'https://api.imgbb.com/1/upload?key=fdaec3ed0608d4178c14b5c74af92ecc'
-            setUrl('')
+
+            console.log(img); 
+
 
             const imgData = new FormData();
 
@@ -37,49 +49,48 @@ const Classification = () => {
             imgData.append('image', {
                 uri,
                 type: 'image/jpeg',
-                name: fileName,
+                name: file,
             });
 
-            await fetch(imgBBUrl, {
+            let res = await fetch(imgBBUrl, {
                 method: 'POST',
                 body: imgData,
-            }).then(res=>res.json())
-            .then(data=> setUrl(data?.data?.display_url))
+            })
+            let data = await res.json();
+            setUrl(data?.data?.display_url)
+            setBtnLoad(false)
         }
         catch (error) {
             console.log(error);
         }
-
-
-
     }
 
 
     const classify = async () => {
 
-        await uploadToImgbb();
-        
-
-        console.log(url);
-
-
         const imgbbData = {
-            url : url
+            url: url
         }
 
-        await fetch('https://movie-mania-server-ruby.vercel.app/classification',
-        {
-            method : "POST",
-            headers :
+        let res = await fetch('https://movie-mania-server-ruby.vercel.app/classification',
             {
-                "content-type" : "application/json"
-            },
-            body : JSON.stringify(imgbbData)
-        }).then(res=>res.json()).then(data=>console.log(data)) 
+                method: "POST",
+                headers:
+                {
+                    "content-type": "application/json"
+                },
+                body: JSON.stringify(imgbbData)
+            })
+        let data = await res.json();
+        setResults(data)
+
+        console.log(data);
 
     }
 
     const pickImage = async () => {
+
+        setImage(null)
 
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -90,12 +101,19 @@ const Classification = () => {
 
 
 
-        if (!result.canceled) {
+        if (!result.canceled) { 
             setImage(result.assets[0].uri);
             setType(result.assets[0].type);
             const extension = result.assets[0].uri.split('.').pop();
             const newfileName = `${uuidv4()}.${extension}`;
+            console.log(newfileName);
             setFileName(newfileName)
+
+            
+            setBtnLoad(true)
+            setUrl(null)
+
+            await uploadToImgbb(result.assets[0].uri , newfileName);
         }
     };
     return (
@@ -105,7 +123,9 @@ const Classification = () => {
                 <Text style={style.heading}>Classify your Movies Genre Here</Text>
                 <Upload pick={pickImage}></Upload>
                 <Canvas img={image}></Canvas>
-                <Clasify predict={classify}></Clasify>
+                {!btnLoad && <Clasify predict={classify}></Clasify>}
+                <GsapLoading styles={style} loading={load} setLoad={setLoad} ></GsapLoading>
+                <Results prediction = {results}></Results>
             </View>
         </ScrollView>
     );

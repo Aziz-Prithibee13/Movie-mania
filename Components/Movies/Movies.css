@@ -1,0 +1,16 @@
+.MovieTitle {
+  font-size: 24;
+  text-align: center;
+  font-weight: bold;
+  font-size: 30px;
+  margin-top: 20%;
+  margin-bottom: 5%;
+}
+
+.moviesPageIcon {
+  width: 50%;
+  margin-top: 10%;
+  margin-bottom: 2%;
+  margin-left: auto;
+  margin-right: auto;
+}/*# sourceMappingURL=Movies.css.map */
