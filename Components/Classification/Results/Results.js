@@ -3,12 +3,12 @@ import { StyleSheet, Text, View } from 'react-native';
 import Result from "./Result"
 const Results = (props) => 
 {
-    const {prediction} = props;
+    const { prediction } = props;
 
     return (
         <View style={styles.OuterView}>
-            <Text>Classification Result</Text>{/* 
-            {prediction.map(result => <Result key = {result?.class} result={result}/>)}  */}
+            <Text style={styles.predictionTitle}>Predicted Genres and Score</Text>
+            {prediction.map(result => <Result key = {result.class} result={result}/>)}  
         </View>
     );
 };
@@ -21,10 +21,15 @@ const styles = StyleSheet.create({
     {
         elevation : 10,
         backgroundColor : '#fff',
-        marginHorizontal : 'auto',
         borderRadius : 15,
         padding: '5%',
-        margin : '10%'
+        margin : '5%'
 
+    },
+    predictionTitle :
+    {
+        fontSize : 25,
+        textAlign : 'center',
+        fontWeight : 'bold'
     }
 })

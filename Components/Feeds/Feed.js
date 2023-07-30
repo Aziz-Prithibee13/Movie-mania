@@ -5,10 +5,16 @@ import Lottie from 'lottie-react-native'
 import HomeComponents from '../Home/Home/HomeComponents';
 import styles from './Feed.scss'
 import FeedComponents from './FeedComponent';
+import { useState } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import auth from '../../firebase.init';
 
 const Feed = (props) => 
 {
-    const { navigation } = props
+    const { navigation } = props;
+
+    const [visible,setVisble] = useState(false);
+    const [user] = useAuthState(auth)
 
     const pages = [
         {
@@ -42,13 +48,21 @@ const Feed = (props) =>
     ]
 
 
-    const handlePress = (route) => {
-        navigation.navigate(route)
+    const handlePress = (route) => 
+    {
+        if(!user)
+        {
+            setVisble(true)
+        }
+        else
+        {
+            navigation.navigate(route)
+        }
     }
 
 
     const renderItem = (itemData) => {
-        return <FeedComponents name={itemData.item.name} img={itemData.item.img} press={handlePress} route={itemData.item.route} />
+        return <FeedComponents name={itemData.item.name} img={itemData.item.img} press={handlePress} visible={visible} setVisible={setVisble} route={itemData.item.route} />
     }
 
     return (

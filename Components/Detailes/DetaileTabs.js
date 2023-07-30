@@ -9,10 +9,14 @@ import Trailer from './Trailer/Trailer';
 import Reacts from './Reacts/Reacts';
 import Reviews from './Reviews/Reviews';
 
-const DetaileTabs = () => {
-    const Tab = createBottomTabNavigator();
+const DetaileTabs = (props) => {
 
-    return (
+
+    const { route } = props
+    const movieId = route.params.id
+    const movieName = route.params.name
+    const Tab = createBottomTabNavigator();
+    return ( 
         <Tab.Navigator
             initialRouteName="general"
             activeColor="#FC2947"
@@ -33,10 +37,15 @@ const DetaileTabs = () => {
                     <MaterialIcons name="article" color={color} size={40} />
                 ),
             }} />
-            <Tab.Screen name="trailers" component={Trailer} options={{
+            <Tab.Screen 
+            name="trailers" 
+            component={Trailer}
+            initialParams ={{trailerId : movieId,name: movieName}} 
+            options={{
                 headerShown:false,
                 tabBarLabel: 'Trailer',
                 tabBarActiveBackgroundColor : '#FFB84C',
+
                 tabBarIcon: ({ color }) => (
                     
                     <MaterialCommunityIcons name="movie-roll" color={color} size={40} />

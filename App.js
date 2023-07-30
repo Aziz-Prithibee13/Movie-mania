@@ -15,37 +15,41 @@ import SignUp from './Components/Authentication/SignUp/SignUp';
 import Classification from './Components/Classification/Classification';
 import Feedback from './Components/Feedbacks/Feedback';
 import DetaileTabs from './Components/Detailes/DetaileTabs';
-
+import { QueryClientProvider,QueryClient } from 'react-query';
 
 
 export default function App() {
 
 
   const Stack = createNativeStackNavigator();
+  const queryClient = new QueryClient();
 
 
   return (
-    <View style={styles.container}>
-      <NavigationContainer>
+    <QueryClientProvider client={queryClient}>
+      <View style={styles.container}>
+        <NavigationContainer>
 
 
 
-        <Stack.Navigator>
-          <Stack.Screen name='Start' component={Start} />
-          <Stack.Screen name='home' component={Home} />
-          <Stack.Screen name='Movies' component={Movies} />
-          <Stack.Screen name='Classify' component={Classification} />
-          <Stack.Screen name='SignUp' component={SignUp} />
-          <Stack.Screen name='login' component={Login} />
-          <Stack.Screen name='feedback' component={Feedback} />
-          <Stack.Screen name='Detailes' component={DetaileTabs} />
-        </Stack.Navigator>
+          <Stack.Navigator>
+            <Stack.Screen name='Start' component={Start} />
+            <Stack.Screen name='home' component={Home} />
+            <Stack.Screen name='Movies' component={Movies} />
+            <Stack.Screen name='Classify' component={Classification} />
+            <Stack.Screen name='SignUp' component={SignUp} />
+            <Stack.Screen name='login' component={Login} />
+            <Stack.Screen name='feedback' component={Feedback} />
+            <Stack.Screen name='Detailes' component={DetaileTabs} />
+          </Stack.Navigator>
 
 
 
-      </NavigationContainer>
+        </NavigationContainer>
 
-    </View>
+      </View>
+    </QueryClientProvider>
+
 
   );
 }

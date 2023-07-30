@@ -22,7 +22,9 @@ const Movie = (props) => {
                         <Text style={styles.movieProperty}> {name}</Text>
                         <Text style={styles.movieProperty}> Rating : {rating}</Text>
                         <Text style={styles.movieProperty}>Genre : {genre}</Text>
-                        <DetailesButton  id={_id}>More Detailes</DetailesButton>
+                        <DetailesButton  
+                        id={_id} 
+                        name={name}>More Detailes</DetailesButton>
                         
                     </View>
                 </View>

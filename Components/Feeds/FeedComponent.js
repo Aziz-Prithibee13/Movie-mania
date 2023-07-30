@@ -1,12 +1,14 @@
 import React from 'react';
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import RequireModal from '../../UI/Modals/RequireModal';
 import styles from "./Feed.scss"
 
 const FeedComponents = (props) => 
 {
-    const { name , img , press , route } = props
+    const { name , img , press , route, visible, setVisible } = props
     return (
         <View style ={[styles.HomeInnerView , style.innerView]}>
+           
             <Pressable android_ripple={{color : '#FFFBEB'}} onPress={()=>press(route)}>
             <View>
                 
@@ -14,6 +16,7 @@ const FeedComponents = (props) =>
                 <Text style={styles.Names}>{name}</Text>
             </View>
         </Pressable>
+        {visible ? <RequireModal visible={visible} setVisible={setVisible}></RequireModal>:null}
         </View>
         
     );

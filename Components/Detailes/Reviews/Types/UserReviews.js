@@ -10,13 +10,12 @@ const UserReviews = () =>
 
     const handleBlur = (e) =>
     {
-        
         setReview(e.nativeEvent.text)
     }
 
     const handleSubmit = () =>
     {
-        console.log(review);
+        
     }
 
     return (

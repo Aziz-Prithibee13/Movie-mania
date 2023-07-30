@@ -8,23 +8,21 @@ import auth from "../../firebase.init"
 import { useNavigation } from '@react-navigation/native';
 
 
-const UserDetailes = () => 
+const UserDetailes = ({navigation}) => 
 {
 
-    const navigation = useNavigation()
 
-
-    const signOut = async() =>
+    const logOut = async() =>
     {
         await signOut(auth);
-        navigation.navigate('feed')
+        navigation.jumpTO('feed')
         
         
     }
     return (
         <View>
             <Text>User Detailes</Text>
-            <LogoutBtn press={signOut}>Sign Out</LogoutBtn>
+            <LogoutBtn press={logOut}>Sign Out</LogoutBtn>
         </View>
     );
 };

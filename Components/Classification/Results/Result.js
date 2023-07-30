@@ -1,56 +1,74 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
 const Result = (props) => {
     const { result } = props
 
-    const [dramabackground, setDramaBackGround] = useState('')
-    const [comedeybackground, setComedeyBackGround] = useState('')
-    const [horrorbackground, setHorrorBackGround] = useState('')
-    const [DramaWidth, setDramaWidth] = useState('');
-    const [horrorWidth, setHorrorWidth] = useState('');
-    const [comedeyWidth, setComedeyWidth] = useState('');
-    const [width, setWidth] = useState('');
-    useEffect(() => {
-        if (result?.class === 'Drama') {
-            setDramaBackGround("#F97B22")
-            setDramaWidth(setWidth(toString((result?.score * 100).toFixed(2)) + '%'))
-        }
-        else if (result?.class === 'Horror') {
-            setHorrorBackGround("#393646")
-            setHorrorWidth(setWidth(toString((result?.score * 100).toFixed(2)) + '%'))
-        }
-        else {
-            setComedeyBackGround('#9575DE')
-            setComedeyWidth(setWidth(toString((result?.score * 100).toFixed(2)) + '%'))
-        }
+    const {score} = result
 
-        if (result?.score) {
-
-            setWidth(toString((result?.score * 100).toFixed(2)) + '%')
-        }
-        else
+    const getBackground = (genre) =>
+    {
+        if(genre === 'Drama')
         {
-            setWidth('0%')
+            return '#F97B22'
         }
+        else if(genre === "Horror")
+        {
+            return '#393646'
+        }
+        else if(genre === 'Comedy')
+        {
+            return '#9575DE'
+        }
+    }
 
-    }, [result])
 
 
-
-
-
+    const accuracy = (score*100).toFixed(2).toString()+"%"
 
     return (
-        <View>
-            <View style={{ width: width, backgroundColor:dramabackground||comedeybackground||horrorbackground }}>
-                <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 20 }}>Predicted : {result?.class} </Text>
-                <Text style={{ color: 'black', fontWeight: 'bold', fontSize: 20 }}>Accuracy : {toString((result?.score * 100).toFixed(2)) + "%"} </Text>
+        <View style={styles.outerView}>
+            
+            <Text style={styles.genreHeader}>Genre: {result.class}</Text>
+            <View style={[{ backgroundColor : getBackground(result.class)},styles.innerView]}>
+                <Text style={styles.genre}>Score : {accuracy} </Text>
             </View>
         </View>
     );
 };
 
 export default Result;
+
+
+const styles = StyleSheet.create(
+    {
+        outerView : 
+        {
+            margin : '5%',
+            padding : '5%',
+            
+        },
+        innerView:
+        {
+            padding:'5%',
+            borderRadius : 15,
+            margin:'2%'
+        },
+        genreHeader :
+        {
+            color: '#222831', 
+            fontWeight: 'bold', 
+            fontSize: 20 , 
+            textAlign:'center'
+        },
+        genre :
+        {
+            color: '#fff', 
+            fontWeight: 'bold', 
+            fontSize: 20, 
+            textAlign:'center'
+        }
+    }
+)

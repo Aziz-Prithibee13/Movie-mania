@@ -95,8 +95,8 @@ const Email = (props) => {
 
 
     const handleSubmit = () =>
-    {/* 
-        createUserWithEmailAndPassword(email, password) */
+    {
+        createUserWithEmailAndPassword(email, password) 
         console.log('pressed');
     }
 

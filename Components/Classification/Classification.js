@@ -38,7 +38,6 @@ const Classification = () => {
             });
             const imgBBUrl = 'https://api.imgbb.com/1/upload?key=fdaec3ed0608d4178c14b5c74af92ecc'
 
-            console.log(img); 
 
 
             const imgData = new FormData();
@@ -106,12 +105,11 @@ const Classification = () => {
             setType(result.assets[0].type);
             const extension = result.assets[0].uri.split('.').pop();
             const newfileName = `${uuidv4()}.${extension}`;
-            console.log(newfileName);
             setFileName(newfileName)
 
             
             setBtnLoad(true)
-            setUrl(null)
+            /* setUrl(null) */
 
             await uploadToImgbb(result.assets[0].uri , newfileName);
         }
@@ -124,8 +122,10 @@ const Classification = () => {
                 <Upload pick={pickImage}></Upload>
                 <Canvas img={image}></Canvas>
                 {!btnLoad && <Clasify predict={classify}></Clasify>}
-                <GsapLoading styles={style} loading={load} setLoad={setLoad} ></GsapLoading>
-                <Results prediction = {results}></Results>
+                {
+                    results.length ? <Results prediction = {results}></Results> : <GsapLoading styles={style} loading={load} setLoad={setLoad} ></GsapLoading>
+                }
+                
             </View>
         </ScrollView>
     );

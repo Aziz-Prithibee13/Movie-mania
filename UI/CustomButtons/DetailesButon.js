@@ -5,14 +5,15 @@ import { Pressable, Text, View } from 'react-native';
 import styles from './CustomButton.scss'
 
 const DetailesButton = (props) => {
-    const { id } = props
+    const { id,name } = props
 
 
     const navigation = useNavigation();
 
     const handPress = () => {
         navigation.navigate("Detailes", {
-            id: id
+            id: id,
+            name: name
         })
     }
     return (
