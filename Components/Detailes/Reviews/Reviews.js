@@ -6,7 +6,10 @@ import UserReviews from './Types/UserReviews';
 
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const Reviews = () => {
+const Reviews = (props) => 
+{
+    const { route } = props
+    const detailes = route.params.detailes
     const Tab = createBottomTabNavigator();
     return (
         <Tab.Navigator initialRouteName="All"
@@ -19,7 +22,7 @@ const Reviews = () => {
               }}
             shifting={true}>
 
-            <Tab.Screen name="All" component={AllReviews} options={{
+            <Tab.Screen name="All" initialParams={detailes} component={AllReviews} options={{
                 headerShown:false,
                 tabBarLabel: 'All Review',
                 tabBarIcon: ({ color }) => (
@@ -27,7 +30,7 @@ const Reviews = () => {
                     <MaterialCommunityIcons name="message-bulleted" color={color} size={20} />
                 ),
             }} />
-            <Tab.Screen name="users" component={UserReviews}
+            <Tab.Screen name="users"  initialParams={detailes} component={UserReviews}
             options={{
                 headerShown:false,
                 tabBarLabel: "User's Review",

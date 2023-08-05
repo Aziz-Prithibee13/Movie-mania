@@ -15,6 +15,11 @@ const DetaileTabs = (props) => {
     const { route } = props
     const movieId = route.params.id
     const movieName = route.params.name
+
+    const detailes = {
+        id : movieId,
+        name : movieName
+    }
     const Tab = createBottomTabNavigator();
     return ( 
         <Tab.Navigator
@@ -52,7 +57,11 @@ const DetaileTabs = (props) => {
 
                 ),
             }} />
-            <Tab.Screen name="reacts" component={Reacts} options={{
+            <Tab.Screen 
+            name="reacts" 
+            component={Reacts} 
+            initialParams ={{ detailes : detailes }}
+            options={{
                 headerShown:false,
                 tabBarLabel: 'Reacts',
                 tabBarIcon: ({ color }) => (
@@ -61,7 +70,7 @@ const DetaileTabs = (props) => {
 
                 ),
             }} />
-            <Tab.Screen name="Review" component={Reviews} options={{
+            <Tab.Screen name="Review" component={Reviews} initialParams={ detailes } options={{
                 headerShown:false,
                 tabBarLabel: 'Reviews',
                 tabBarIcon: ({ color }) => (

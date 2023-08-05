@@ -5,7 +5,8 @@ import SubmitButton from '../../../UI/CustomButtons/SubmitButton';
 import DateTimePicker from '@react-native-community/datetimepicker'
 import DateBtn from '../../../UI/CustomButtons/DateBtn';
 import auth from '../../../firebase.init';
-import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useAuthState, useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import useNames from '../../../hooks/useNames';
 
 const Email = (props) => {
     const { type } = props
@@ -13,22 +14,27 @@ const Email = (props) => {
     const [date, setDate] = useState(new Date());
     const [mode, setMode] = useState('date');
     const [show, setShow] = useState(false);
-    const [name, setName] = useState(null)
-    const [email, setEmail] = useState(null)
-    const [password, setPassWord] = useState(null)
-    const [mobile, setMobile] = useState(null)
+    const [name, setName] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassWord] = useState('')
+    const [mobile, setMobile] = useState('')
     const [nameError, setNameError] = useState('')
     const [emailError, setEmailError] = useState('')
     const [mobileError, setMobileError] = useState('')
     const [passError, setPassError] = useState('')
+    const [registrationError, setRegistrationError] = useState('')
+    const [userNames, setUserNames] = useNames();
+
     const [
         createUserWithEmailAndPassword,
-        user,
+        emailUser,
         loading,
         error,
-      ] = useCreateUserWithEmailAndPassword(auth);
+    ] = useCreateUserWithEmailAndPassword(auth);
 
-    
+    const [user] = useAuthState(auth)
+
+
 
 
     const onChange = (event, selectedDate) => {
@@ -46,58 +52,91 @@ const Email = (props) => {
         showMode('date');
     };
 
-    const nameBlur=(e)=>
-    {
-        
-        setName(e.nativeEvent.text)
-        
+    const nameBlur = (e) => {
+        const newName = e.nativeEvent.text
+
+        const cheakNames = userNames.filter(name => name === newName)
+        if (cheakNames.length) {
+            setNameError('This name already in use. Try new one')
+        }
+        else if(!name) 
+        {
+            setNameError('Provide a name')
+        }
+        else {
+            setName(newName)
+        }
+
+
     }
 
-    const emailBlur=(e)=>
-    {
+    const emailBlur = (e) => {
         const email = e.nativeEvent.text
 
 
-        if(!/[a-z0-9]+@[a-z]+\.[a-z]{2,3}/.test(email) || !email)
-        {
-          setEmailError('Provide An valid Email')
+        if (!/[a-z0-9]+@[a-z]+\.[a-z]{2,3}/.test(email) || !email) {
+            setEmailError('Provide An valid Email')
+        }
+        else {
+            setEmailError('')
         }
 
         setEmail(e.nativeEvent.text)
 
     }
 
-    const mobileBlur=(e)=>
-    {
+    const mobileBlur = (e) => {
         const mobile = e.nativeEvent.text
-        if( mobile.length !==11 || !mobile )
-        {
+        if (mobile.length !== 11 || !mobile) {
             setMobileError("Give 11 digit mobile number")
+        }
+        else {
+            setMobileError('')
         }
         setMobile(e.nativeEvent.text)
 
     }
 
-    const passwordBlur=(e)=>
-    {
+    const passwordBlur = (e) => {
         const pass = e.nativeEvent.text
-        if(pass.length<8 || !pass)
-        {
+        if (pass.length < 8 || !pass) {
             setPassError("Password atleast 8 charecters")
+        }
+        else {
+            setPassError('')
         }
         setPassWord(e.nativeEvent.text)
     }
 
-    if(user)
-    {
-        console.log(user);
-    }
 
 
-    const handleSubmit = () =>
-    {
-        createUserWithEmailAndPassword(email, password) 
-        console.log('pressed');
+    const handleSubmit = () => {
+
+        if (emailError || mobileError || passError || nameError) {
+            setRegistrationError('Somthing wrong in given data')
+            return
+        }
+        else {
+
+            createUserWithEmailAndPassword(email, password)
+
+            const userDetailes = {
+                name: name,
+                email: email,
+                mobile: mobile,
+                birthDate: date
+            }
+
+            fetch('https://movie-mania-server-ruby.vercel.app/user', {
+                method: 'PUT',
+                headers: {
+                    "content-type": 'application/json'
+                },
+                body: JSON.stringify(userDetailes)
+            }).then(data => data.json()).then(res => console.log(res))
+        }
+
+
     }
 
 
@@ -110,6 +149,7 @@ const Email = (props) => {
                     onEndEditing={nameBlur}
                     style={styles.textInput}
                 />
+                {nameError ? <Text style = {styles.errorMessage}>{nameError}</Text> : <Text style={styles.correctMessage}>Name is correct</Text>}
 
                 <TextInput
                     placeholder="Enter Email"
@@ -118,7 +158,7 @@ const Email = (props) => {
                     style={styles.textInput}
                 />
 
-                {emailError? <Text style={styles.errorMessage}>{emailError}</Text> : null}
+                {emailError ? <Text style={styles.errorMessage}>{emailError}</Text> : <Text style={styles.correctMessage}>email is correct</Text>}
 
                 <TextInput
                     placeholder="Enter Your Mobile Number"
@@ -126,15 +166,15 @@ const Email = (props) => {
                     style={styles.textInput}
                 />
 
-                {mobileError? <Text style={styles.errorMessage}>{mobileError}</Text> : null}
+                {mobileError ? <Text style={styles.errorMessage}>{mobileError}</Text> : <Text style={styles.correctMessage}>Mobile number is correct</Text>}
 
                 <TextInput
                     placeholder="Enter Your Password"
                     onEndEditing={passwordBlur}
                     style={styles.textInput}
                 />
-                {passError ? <Text style={styles.errorMessage}>{passError}</Text> : null}
-                <DateBtn press={showDatepicker} styles = {styles.textInput} value={date.toLocaleString()}></DateBtn>
+                {passError ? <Text style={styles.errorMessage}>{passError}</Text> : <Text style={styles.correctMessage}>Password is correct</Text>}
+                <DateBtn press={showDatepicker} styles={styles.textInput} value={date.toLocaleString()}></DateBtn>
 
                 {show && (
                     <DateTimePicker
@@ -143,7 +183,7 @@ const Email = (props) => {
                         mode={mode}
                         is24Hour={true}
                         onChange={onChange}
-        
+
                     />
                 )}
 
@@ -195,12 +235,18 @@ const styles = StyleSheet.create({
         borderBottomWidth: 3,
         margin: 20
     },
-    errorMessage : 
+    errorMessage:
     {
-        textAlign : 'center',
-        color : '#D21312',
-        fontWeight : 'bold',
-        fontSize : 15
-
+        textAlign: 'center',
+        color: '#D21312',
+        fontWeight: 'bold',
+        fontSize: 15
+    },
+    correctMessage:
+    {
+        textAlign: 'center',
+        color: '#54B435',
+        fontWeight: 'bold',
+        fontSize: 15
     }
 })

@@ -8,7 +8,7 @@ import style from "./Reacts.scss"
 const Like = (props) => 
 {
 
-    const {press , color, icon} = props
+    const {press , color, icon , count} = props
 
 
 
@@ -17,7 +17,9 @@ const Like = (props) =>
             <Pressable onPress={press} android_ripple={{color : '#eee'}}>
                 <FontAwesome name={icon} color={color} size={50} />
             </Pressable>
+            <Text style={style.reactLabel}>{count}</Text>
             <Text style={style.reactLabel}>Like</Text>
+            
 
         </View>
     );

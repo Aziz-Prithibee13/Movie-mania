@@ -1,39 +1,76 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { StyleSheet, Text, TextInput, View, ScrollView } from 'react-native';
 import SubmitButton from '../../../../UI/CustomButtons/SubmitButton';
 import Lottie from 'lottie-react-native'
 import style from "../Reviews.scss"
-const UserReviews = () => 
-{
-    const [values ,setValues] = useState('');
-    const [review , setReview] = useState('');
+import { useAuthState } from 'react-firebase-hooks/auth';
+import auth from '../../../../firebase.init';
+import { useQuery } from 'react-query';
+import Review from '../Review';
+const UserReviews = (props) => {
+    const [values, setValues] = useState('');
+    const [review, setReview] = useState('');
+    const [user] = useAuthState(auth)
 
-    const handleBlur = (e) =>
-    {
+    const {route} = props;
+    const detailes = route.params.detailes
+
+    const {id , name} = detailes
+
+
+    const url = `https://movie-mania-server-ruby.vercel.app/review?email=${user?.email}`
+
+    const { data: reviews = [] } = useQuery({
+        queryKey: ['reviews'],
+        queryFn: () => fetch(url).then(res => res.json())
+    })
+
+
+  
+    const handleBlur = (e) => {
         setReview(e.nativeEvent.text)
     }
 
-    const handleSubmit = () =>
-    {
-        
+    const handleSubmit = () => {
+        const userReview =
+        {
+            email: user.email,
+            movieId : id,
+            review: review
+        }
+
+        fetch('https://movie-mania-server-ruby.vercel.app/review', {
+            method: "POST",
+            headers:
+            {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify(userReview)
+        }).then(data => data.json()).then(res => console.log(data))
     }
 
     return (
-        <View>
+        <ScrollView>
             <View style={style.formContainer}>
                 <View style={styles.formView}>
 
                     <Text style={style.formHeading}>Provide your Reviews for this movie</Text>
-                    <TextInput 
-                    placeholder='Enter your Review'
-                    style={styles.textInput}
-                    onEndEditing={handleBlur}
+                    <TextInput
+                        placeholder='Enter your Review'
+                        style={styles.textInput}
+                        onEndEditing={handleBlur}
                     />
                     <SubmitButton press={handleSubmit}>Submit Your Review</SubmitButton>
                 </View>
-                <View></View>
+
             </View>
-        </View>
+
+
+            <View>
+                <Text>Your Reviews</Text>
+                {reviews.map(review=><Review key={review._id} reviewData={review}></Review>)}
+            </View>
+        </ScrollView>
     );
 };
 

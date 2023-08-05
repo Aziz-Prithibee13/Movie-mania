@@ -6,7 +6,7 @@ import style from "./Reacts.scss";
 
 
 const Love = (props) => {
-    const { press, color , icon } = props;
+    const { press, color , icon , count } = props;
     return (
         <View>
             <Pressable onPress={press}>
@@ -15,7 +15,9 @@ const Love = (props) => {
                     <MaterialIcons name={icon} color={color} size={50} />
                 </View>
             </Pressable>
+            <Text style={style.reactLabel}>{count}</Text>
             <Text style={style.reactLabel}>Love</Text>
+            
 
         </View>
     );

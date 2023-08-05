@@ -15,7 +15,7 @@ const UserDetailes = ({navigation}) =>
     const logOut = async() =>
     {
         await signOut(auth);
-        navigation.jumpTO('feed')
+        navigation.jumpTo('feed')
         
         
     }
