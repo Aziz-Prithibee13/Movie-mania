@@ -70,7 +70,7 @@ const DetaileTabs = (props) => {
 
                 ),
             }} />
-            <Tab.Screen name="Review" component={Reviews} initialParams={ detailes } options={{
+            <Tab.Screen name="Review" component={Reviews} initialParams={ {id : movieId, name : movieName} } options={{
                 headerShown:false,
                 tabBarLabel: 'Reviews',
                 tabBarIcon: ({ color }) => (

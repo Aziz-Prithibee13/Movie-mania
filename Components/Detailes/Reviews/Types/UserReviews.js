@@ -13,16 +13,14 @@ const UserReviews = (props) => {
     const [user] = useAuthState(auth)
 
     const {route} = props;
-    const detailes = route.params.detailes
-
-    const {id , name} = detailes
+    const id = route.params.id
 
 
-    const url = `https://movie-mania-server-ruby.vercel.app/review?email=${user?.email}`
+
 
     const { data: reviews = [] } = useQuery({
         queryKey: ['reviews'],
-        queryFn: () => fetch(url).then(res => res.json())
+        queryFn: () => fetch(`https://movie-mania-server-ruby.vercel.app/review?email=${user.email}`).then(res => res.json())
     })
 
 
@@ -46,7 +44,7 @@ const UserReviews = (props) => {
                 "content-type": "application/json"
             },
             body: JSON.stringify(userReview)
-        }).then(data => data.json()).then(res => console.log(data))
+        }).then(data => data.json()).then(data => console.log(data))
     }
 
     return (
@@ -67,8 +65,9 @@ const UserReviews = (props) => {
 
 
             <View>
-                <Text>Your Reviews</Text>
-                {reviews.map(review=><Review key={review._id} reviewData={review}></Review>)}
+                <Text style={styles.heading}>Your Reviews</Text>
+                
+                { reviews.map(review=><Review key={review._id} reviewData={review}></Review>)}
             </View>
         </ScrollView>
     );
@@ -93,5 +92,12 @@ const styles = StyleSheet.create({
         width: 300,
         textAlign: 'center'
 
+    },
+    heading : 
+    {
+        fontWeight : 'bold',
+        fontSize : 30,
+        textAlign : 'center'
     }
+
 })

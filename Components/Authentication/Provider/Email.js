@@ -5,7 +5,7 @@ import SubmitButton from '../../../UI/CustomButtons/SubmitButton';
 import DateTimePicker from '@react-native-community/datetimepicker'
 import DateBtn from '../../../UI/CustomButtons/DateBtn';
 import auth from '../../../firebase.init';
-import { useAuthState, useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useAuthState, useCreateUserWithEmailAndPassword, useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import useNames from '../../../hooks/useNames';
 
 const Email = (props) => {
@@ -31,6 +31,12 @@ const Email = (props) => {
         loading,
         error,
     ] = useCreateUserWithEmailAndPassword(auth);
+    const [
+        signInWithEmailAndPassword,
+        signinuser,
+        signinloading,
+        signinerror,
+      ] = useSignInWithEmailAndPassword(auth);
 
     const [user] = useAuthState(auth)
 
@@ -59,8 +65,7 @@ const Email = (props) => {
         if (cheakNames.length) {
             setNameError('This name already in use. Try new one')
         }
-        else if(!name) 
-        {
+        else if (name === '') {
             setNameError('Provide a name')
         }
         else {
@@ -71,29 +76,28 @@ const Email = (props) => {
     }
 
     const emailBlur = (e) => {
-        const email = e.nativeEvent.text
+        const newEmail = e.nativeEvent.text
 
 
-        if (!/[a-z0-9]+@[a-z]+\.[a-z]{2,3}/.test(email) || !email) {
+        if (!/[a-z0-9]+@[a-z]+\.[a-z]{2,3}/.test(newEmail) || email === '') {
             setEmailError('Provide An valid Email')
         }
         else {
             setEmailError('')
         }
 
-        setEmail(e.nativeEvent.text)
+        setEmail(newEmail)
 
     }
 
     const mobileBlur = (e) => {
-        const mobile = e.nativeEvent.text
-        if (mobile.length !== 11 || !mobile) {
+        const newMobile = e.nativeEvent.text
+        if (newMobile.length !== 11 || mobile === '') {
             setMobileError("Give 11 digit mobile number")
         }
         else {
             setMobileError('')
         }
-        setMobile(e.nativeEvent.text)
 
     }
 
@@ -104,8 +108,9 @@ const Email = (props) => {
         }
         else {
             setPassError('')
+
+            setPassWord(pass)
         }
-        setPassWord(e.nativeEvent.text)
     }
 
 
@@ -139,6 +144,13 @@ const Email = (props) => {
 
     }
 
+    const handleSignIn  = () =>
+    {
+        console.log(email);
+        console.log(password);
+        signInWithEmailAndPassword(email,password)
+    }
+
 
     if (type === 'signup') {
         return (
@@ -149,7 +161,7 @@ const Email = (props) => {
                     onEndEditing={nameBlur}
                     style={styles.textInput}
                 />
-                {nameError ? <Text style = {styles.errorMessage}>{nameError}</Text> : <Text style={styles.correctMessage}>Name is correct</Text>}
+                {nameError ? <Text style={styles.errorMessage}>{nameError}</Text> : <Text style={styles.correctMessage}>Name is correct</Text>}
 
                 <TextInput
                     placeholder="Enter Email"
@@ -191,6 +203,7 @@ const Email = (props) => {
 
 
                 <SubmitButton press={handleSubmit}>Sign Up</SubmitButton>
+                {registrationError ? <Text style={styles.errorMessage}>Somting wrong in given data</Text>: null}
             </View>
         );
     }
@@ -204,6 +217,7 @@ const Email = (props) => {
                 <TextInput
                     placeholder="Enter your email Here"
                     style={styles.textInput}
+                    onEndEditing={emailBlur}
                 />
 
 
@@ -211,10 +225,11 @@ const Email = (props) => {
                     placeholder="Enter Your Password"
 
                     style={styles.textInput}
+                    onEndEditing={passwordBlur}
                 />
 
 
-                <SubmitButton>Login</SubmitButton>
+                <SubmitButton press={handleSignIn}>Login</SubmitButton>
 
             </View>
         );

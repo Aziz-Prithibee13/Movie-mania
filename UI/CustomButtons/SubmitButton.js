@@ -7,7 +7,7 @@ const SubmitButton = (props) =>
     const { press } = props
     return (
         <View style={styles.outerView}>
-            <Pressable onPress={press}>
+            <Pressable onPress={press} android_ripple={{color : '#fff'}}>
                 <View style={style.submitBtninnerView}>
                     <Text style={styles.btnText}>{props.children}</Text>
                 </View>
