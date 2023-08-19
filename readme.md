@@ -6,7 +6,7 @@
 4. Realtime unique username verification through contacting your own database without refreshing or reloading the whole page.:heavy_check_mark:
 5. Email and phone number verification like the Gmail registration page. :heavy_check_mark:
 6. Multiple text box and multiple drop down list manipulation. :heavy_check_mark:
-7. Interactive real-time rating options for each post or for your site/app. 
+7. Interactive real-time rating options for each post or for your site/app. :heavy_check_mark:
 8. Pagination. :heavy_check_mark:
 9. Playing audio/videos that are embedded on your site but obtained from external databases not your own. For example, playing the youtube video embedded on your site. :heavy_check_mark:
 10. Google map with real-time location information or at least embed maps Iframe. :heavy_check_mark:

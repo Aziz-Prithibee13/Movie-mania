@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, TextInput, View, ScrollView } from 'react-native';
 import SubmitButton from '../../../../UI/CustomButtons/SubmitButton';
 import Lottie from 'lottie-react-native'
@@ -7,45 +7,74 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../../../firebase.init';
 import { useQuery } from 'react-query';
 import Review from '../Review';
+import axios from 'axios';
 const UserReviews = (props) => {
-    const [values, setValues] = useState('');
+    //const [reviews, setReviews] = useState([]);
     const [review, setReview] = useState('');
     const [user] = useAuthState(auth)
 
-    const {route} = props;
+    const [ack, setAck] = useState({})
+
+
+    const { route } = props;
+
+
+
+
     const id = route.params.id
 
+   
 
 
 
-    const { data: reviews = [] } = useQuery({
-        queryKey: ['reviews'],
-        queryFn: () => fetch(`https://movie-mania-server-ruby.vercel.app/review?email=${user.email}`).then(res => res.json())
-    })
+        const { data:reviews = [], isLoading, refetch } = useQuery({
+            queryKey : ["userReviews"],
+            queryFn : () => fetch(`https://movie-mania-server-ruby.vercel.app/review/${user.email}/${id}`).then(res=>res.json()),
+            refetchOnMount : 'always'
+        })
+
+        console.log(reviews);
+
+    
 
 
-  
     const handleBlur = (e) => {
         setReview(e.nativeEvent.text)
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
+        
         const userReview =
         {
             email: user.email,
-            movieId : id,
+            movieId: id,
             review: review
         }
 
-        fetch('https://movie-mania-server-ruby.vercel.app/review', {
+        await fetch('https://movie-mania-server-ruby.vercel.app/review', {
             method: "POST",
             headers:
             {
                 "content-type": "application/json"
             },
             body: JSON.stringify(userReview)
-        }).then(data => data.json()).then(data => console.log(data))
+        }).then(res => res.json()).then(data => setAck(data))
+
+        if(ack)
+        {
+            refetch()
+        }
+
+
     }
+
+
+
+
+
+
+
+
 
     return (
         <ScrollView>
@@ -66,8 +95,10 @@ const UserReviews = (props) => {
 
             <View>
                 <Text style={styles.heading}>Your Reviews</Text>
-                
-                { reviews.map(review=><Review key={review._id} reviewData={review}></Review>)}
+
+                {
+                    isLoading ? <Text>Loading ....</Text> : reviews.map(review => <Review key={review._id} reviewData={review}></Review>)
+                }
             </View>
         </ScrollView>
     );
@@ -93,11 +124,11 @@ const styles = StyleSheet.create({
         textAlign: 'center'
 
     },
-    heading : 
+    heading:
     {
-        fontWeight : 'bold',
-        fontSize : 30,
-        textAlign : 'center'
+        fontWeight: 'bold',
+        fontSize: 30,
+        textAlign: 'center'
     }
 
 })

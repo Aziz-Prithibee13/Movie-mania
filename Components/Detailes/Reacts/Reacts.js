@@ -15,7 +15,7 @@ const Reacts = (props) => {
     const { route } = props;
     const detailes = route.params.detailes
 
-    const { id , name } = detailes
+    const { id, name } = detailes
 
     const [like, setLike] = useState(false);
     const [likeIcon, setLikeIcon] = useState('thumbs-o-up')
@@ -23,47 +23,55 @@ const Reacts = (props) => {
     const [love, setLove] = useState(false);
     const [loveIcon, setLoveIcon] = useState('favorite-outline')
     const [likeColor, setLikeColor] = useState('')
-    const [unlikeIcon , setUnlikeIcon] = useState('thumbs-o-down')
+    const [unlikeIcon, setUnlikeIcon] = useState('thumbs-o-down')
     const [unlikeColor, setUnLikeColor] = useState('')
     const [loveColor, setLoveColor] = useState('')
 
 
-    const [ratings , setRatings] = useState(0)
+    const [ratings, setRatings] = useState(0)
     const [user] = useAuthState(auth)
 
-
-    const { data: reactsCount = [] } = useQuery({
-        queryKey: ['reviews'],
-        queryFn: () => fetch(`https://movie-mania-server-ruby.vercel.app/react/${id}`).then(res => res.json())
-    })
-
-    const { data: userReacts = [] } = useQuery({
-        queryKey: ['userReacts'],
-        queryFn: () => fetch(`https://movie-mania-server-ruby.vercel.app/reactDetailes/${user.email}/${id}`).then(res => res.json())
-    })
+    const reactCountHandler = () => {
+        const { data: reactsCount = [], isLoading, refetch } = useQuery({
+            queryKey: ['reacts'],
+            queryFn: () => fetch(`https://movie-mania-server-ruby.vercel.app/react/${id}`).then(res => res.json())
+        })
 
 
-    useEffect(()=>
-    {
-        if(userReacts[0]?.like)
-        {
+        return [reactsCount, refetch]
+    }
+
+
+    const userReacthandler = () => {
+        const { data: userReacts = [], isLoading, refetch } = useQuery({
+            queryKey: ['userReacts'],
+            queryFn: () => fetch(`https://movie-mania-server-ruby.vercel.app/reactDetailes/${user.email}/${id}`).then(res => res.json())
+        })
+
+        return [userReacts , refetch]
+    }
+
+
+    const [ userReacts , refetch2] = userReacthandler()
+    const [reactsCount , refetch1] = reactCountHandler()
+    useEffect(() => {
+        if (userReacts[0]?.like) {
             setLikeColor('#4267B2')
             setLikeIcon('thumbs-up')
         }
 
-        if(userReacts[0]?.favourite)
-        {
+        if (userReacts[0]?.favourite) {
             setLoveColor('#ED2B2A')
             setLoveIcon('favorite')
         }
 
-        if(userReacts[0]?.unlike)
-        {
-            
+        if (userReacts[0]?.unlike) {
+
             setUnLikeColor('#454545');
-            setUnlikeIcon('thumbsdown')
+            setUnlikeIcon('thumbs-down')
         }
-    },[setLikeIcon,setLoveIcon,setUnlikeIcon])
+
+    }, [userReacts,setLikeIcon, setLoveIcon, setUnlikeIcon])
 
 
     const handleLike = () => {
@@ -75,33 +83,35 @@ const Reacts = (props) => {
             setLikeColor('#4267B2')
             setLikeIcon('thumbs-up')
 
-            reactDetailes = 
+            reactDetailes =
             {
-                email : user.email,
-                movieId : id,
-                like : 'Liked'
+                email: user.email,
+                movieId: id,
+                like: 'Liked'
             }
 
         }
         else if (!like) {
             setLikeColor('')
             setLikeIcon('thumbs-o-up')
-            reactDetailes = 
+            reactDetailes =
             {
-                email : user.email,
-                movieId : id,
-                like : ''
+                email: user.email,
+                movieId: id,
+                like: ''
             }
         }
 
-        fetch('https://movie-mania-server-ruby.vercel.app/reacts' , {
-            method : "PUT",
-            headers : 
+        fetch('https://movie-mania-server-ruby.vercel.app/reacts', {
+            method: "PUT",
+            headers:
             {
-                "content-type" : "application/json"
+                "content-type": "application/json"
             },
-            body : JSON.stringify(reactDetailes)
+            body: JSON.stringify(reactDetailes)
         })
+
+        refetch1()
 
     }
 
@@ -114,41 +124,46 @@ const Reacts = (props) => {
             setLoveColor('#ED2B2A')
             setLoveIcon('favorite')
 
-            reactDetailes = 
+            reactDetailes =
             {
-                email : user.email,
-                movieId : id,
-                favourite : 'Loved'
+                email: user.email,
+                movieId: id,
+                favourite: 'Loved'
             }
+
+
 
         }
 
         else if (!love) {
             setLoveColor('')
             setLoveIcon('favorite-outline')
-            reactDetailes = 
+            reactDetailes =
             {
-                email : user.email,
-                movieId : id,
-                favourite : ''
+                email: user.email,
+                movieId: id,
+                favourite: ''
             }
 
         }
 
-        
-        fetch('https://movie-mania-server-ruby.vercel.app/reacts' , {
-            method : "PUT",
-            headers : 
+
+        fetch('https://movie-mania-server-ruby.vercel.app/reacts', {
+            method: "PUT",
+            headers:
             {
-                "content-type" : "application/json"
+                "content-type": "application/json"
             },
-            body : JSON.stringify(reactDetailes)
+            body: JSON.stringify(reactDetailes)
         })
+
+
+        
+        refetch1()
     }
 
 
-    const handleUnlike = () => 
-    {
+    const handleUnlike = () => {
         setLike(false)
         setLove(false)
 
@@ -156,41 +171,43 @@ const Reacts = (props) => {
 
         let reactDetailes
 
-        if(unlike)
-        {
+        if (unlike) {
             setUnLikeColor('#454545');
             setUnlikeIcon('thumbsdown')
-            reactDetailes = 
+            reactDetailes =
             {
-                email : user.email,
-                movieId : id,
-                like : '',
-                favourite : '',
-                unlike : 'Unliked'
+                email: user.email,
+                movieId: id,
+                like: '',
+                favourite: '',
+                unlike: 'Unliked'
             }
         }
-        else
-        {
+        else {
             setUnlikeIcon('thumbs-o-down')
             setUnLikeColor('')
 
-            reactDetailes = 
+            reactDetailes =
             {
-                email : user.email,
-                movieId : id,
-                unlike : ''
+                email: user.email,
+                movieId: id,
+                unlike: ''
             }
 
         }
 
-        fetch('https://movie-mania-server-ruby.vercel.app/reacts' , {
-            method : "PUT",
-            headers : 
+        fetch('https://movie-mania-server-ruby.vercel.app/reacts', {
+            method: "PUT",
+            headers:
             {
-                "content-type" : "application/json"
+                "content-type": "application/json"
             },
-            body : JSON.stringify(reactDetailes)
+            body: JSON.stringify(reactDetailes)
         })
+
+
+        
+        refetch1()
 
     }
 
@@ -201,16 +218,16 @@ const Reacts = (props) => {
             <View style={[style.reactConntainer, styles.container]}>
                 <Text style={style.reactHeader}>Give your reacts on {name}</Text>
                 <View style={style.reacts}>
-                    <Like press={handleLike} icon={likeIcon} color={likeColor} count = {reactsCount.like}/>
-                    <Unlike press={handleUnlike} icon={unlikeIcon} color={unlikeIcon} count = {reactsCount.unlike} />
-                    <Love press={handleLove} icon={loveIcon} color={loveColor} count = {reactsCount.fav} />
+                    <Like press={handleLike} icon={likeIcon} color={likeColor} count={reactsCount?.like} />
+                    <Unlike press={handleUnlike} icon={unlikeIcon} color={unlikeIcon} count={reactsCount?.unlike} />
+                    <Love press={handleLove} icon={loveIcon} color={loveColor} count={reactsCount?.fav} />
                 </View>
             </View>
 
             <View>
                 <Text>Give Ratings to the movie</Text>
-                <Ratings rating={ratings} setRating={setRatings}/>
-                
+                <Ratings rating={ratings} setRating={setRatings} />
+
             </View>
         </View>
     );

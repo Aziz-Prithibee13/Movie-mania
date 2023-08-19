@@ -10,7 +10,6 @@ const Ratings = (props) =>
             showRating
             startingValue={rating}
             ratingBackgroundColor='transparent'
-            onFinishRating = {() => console.log(ratingValue)}
         />
     );
 };

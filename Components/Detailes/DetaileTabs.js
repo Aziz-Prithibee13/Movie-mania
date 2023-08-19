@@ -34,7 +34,7 @@ const DetaileTabs = (props) => {
                     height : 100 ,
                 },
               }}>
-            <Tab.Screen name="general" component={General} options={{
+            <Tab.Screen name="general" initialParams={detailes} component={General} options={{
                 headerShown:false,
                 tabBarLabel: 'Article',
                 tabBarActiveBackgroundColor : '#FFB84C',

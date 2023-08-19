@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
         elevation: 10,
         backgroundColor: "#FFFBEB",
         margin: 30,
-
+        borderRadius : 15
 
     }
 })

@@ -9,7 +9,10 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 const Reviews = (props) => 
 {
     const { route } = props
+
     const id = route.params.id
+
+    const detailes = {id : id}
     const Tab = createBottomTabNavigator();
     return (
         <Tab.Navigator initialRouteName="All"
@@ -22,7 +25,7 @@ const Reviews = (props) =>
               }}
             shifting={true}>
 
-            <Tab.Screen name="All" initialParams={id} component={AllReviews} options={{
+            <Tab.Screen name="All" initialParams={detailes} component={AllReviews} options={{
                 headerShown:false,
                 tabBarLabel: 'All Review',
                 tabBarIcon: ({ color }) => (
@@ -30,7 +33,7 @@ const Reviews = (props) =>
                     <MaterialCommunityIcons name="message-bulleted" color={color} size={20} />
                 ),
             }} />
-            <Tab.Screen name="users" initialParams={id} component={UserReviews}
+            <Tab.Screen name="users" initialParams={detailes} component={UserReviews}
             options={{
                 headerShown:false,
                 tabBarLabel: "User's Review",

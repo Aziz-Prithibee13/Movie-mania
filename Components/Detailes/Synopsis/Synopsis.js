@@ -4,7 +4,10 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import Plot from '../Plot/Plot';
 
-const Synopsis = () => {
+const Synopsis = (props) => 
+{
+    const {id} = props
+
 
     const [right1 , setRight1] = useState(0)
     const [right2 , setRight2] = useState(0)
@@ -29,19 +32,6 @@ const Synopsis = () => {
     }
 
 
-    const handlePress2 = (value) =>
-    {
-        if (right2 === value) {
-            setMaterialIconUpDown2('arrow-right')
-            setCastShow(false)
-            setRight2(0)
-        }
-        else {
-            setMaterialIconUpDown2('arrow-drop-down')
-            setCastShow(true)
-            setRight2(value)
-        }
-    }
 
     return (
         <View style={styles.innerView}>
@@ -52,18 +42,10 @@ const Synopsis = () => {
                         <Text style={styles.pressableText}>Plot</Text>
                     </View>
                 </Pressable>
-                {plotSHow ? <Plot /> : null}
+                {plotSHow ? <Plot id={id}/> : null}
             </View>
 
             
-            <View>
-                <Pressable onPress={()=> handlePress2(1)}>
-                    <View style={styles.pressableView}>
-                        <MaterialIcon name={MaterialIconUpDown2} size={30} />
-                        <Text style={styles.pressableText}>Casts</Text>
-                    </View>
-                </Pressable>
-            </View>
             
         </View>
 
